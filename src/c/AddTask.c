@@ -8,6 +8,8 @@ static Window *add_task_window;
 static TextLayer *add_task_text_layer;
 static Layer *s_header_layer;
 
+static int currentRow;
+
 
 static ActionBarLayer *s_action_bar;
 static GBitmap *s_up_bitmap, *s_down_bitmap, *s_check_bitmap;
@@ -179,9 +181,9 @@ void add_task_window_unload(Window *window) {
   gbitmap_destroy(s_check_bitmap);
 }
 
-void add_task_init(void) {
+void add_task_init(int passedRow) {
 
-  setMenuRows();
+  currentRow = passedRow;
 
   add_task_window = window_create();
   window_set_window_handlers(add_task_window, (WindowHandlers) {

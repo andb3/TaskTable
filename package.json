@@ -20,7 +20,9 @@
       "watchface": false
     },
     "messageKeys": [
-      "dummy"
+      "TaskAdd",
+      "TableUpdate",
+      "RowGetTasks"
     ],
     "resources": {
       "media": [
