@@ -1,0 +1,46 @@
+{
+  "name": "TaskTable",
+  "author": "MakeAwesomeHappen",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "TaskTable",
+    "uuid": "e5f19689-aff4-4076-b9ab-d9af219c7dcb",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+        {
+          "type": "bitmap",
+          "name": "UP_ICON",
+          "file": "mic.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "CHECK_ICON",
+          "file": "check.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DOWN_ICON",
+          "file": "time.png"
+        }
+
+      ]
+    }
+  }
+}
