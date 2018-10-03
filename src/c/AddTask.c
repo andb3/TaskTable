@@ -59,10 +59,18 @@ void add_task_window_load(Window *window) {
 
   #endif
 
-
-
-
   layer_add_child(window_layer, text_layer_get_layer(add_task_text_layer));
+
+  // Create canvas layer
+  s_header_layer = layer_create(bounds);
+
+  // Assign the custom drawing procedure
+  layer_set_update_proc(s_header_layer, header_update_proc);
+
+  // Add to Window
+  layer_add_child(window_layer, s_header_layer);
+
+
 
   // Load icon bitmaps
   s_up_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UP_ICON);
@@ -82,14 +90,7 @@ void add_task_window_load(Window *window) {
   action_bar_layer_add_to_window(s_action_bar, add_task_window);
 
 
-  // Create canvas layer
-  s_header_layer = layer_create(bounds);
 
-  // Assign the custom drawing procedure
-  layer_set_update_proc(s_header_layer, header_update_proc);
-
-  // Add to Window
-  layer_add_child(window_get_root_layer(window), s_header_layer);
 
 }
 
@@ -98,25 +99,43 @@ static void header_update_proc(Layer *layer, GContext *ctx) {
 
   GRect layer_bounds = layer_get_bounds(layer);
 
+  #ifdef PBL_COLOR
+
   // Set the fill color
-  graphics_context_set_fill_color(ctx, GColorBlue);
+  graphics_context_set_fill_color(ctx, GColorPictonBlue);
+
+  // Set the font color
+  graphics_context_set_text_color(ctx, GColorBlack);
+
+  #else
+
+  // Set the fill color
+  graphics_context_set_fill_color(ctx, GColorBlack);
+
+  // Set the font color
+  graphics_context_set_text_color(ctx, GColorWhite);
+
+  #endif
+
+
   GRect rect_bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y, layer_bounds.size.w, HEADER_HEIGHT);
-  graphics_fill_rect(ctx, rect_bounds, 0, GCornersAll);
 
 
   // Draw a rectangle
-  graphics_draw_rect(ctx, rect_bounds);
+  //graphics_draw_rect(ctx, rect_bounds);
+
+  graphics_fill_rect(ctx, rect_bounds, 0, GCornersAll);
+
 
   // Load the font
   GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  // Set the color
-  graphics_context_set_text_color(ctx, GColorBlack);
+
 
   char *text = "Add a Task";
 
   // Determine a reduced bounding box
-  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y,
-                       layer_bounds.size.w, HEADER_HEIGHT);
+  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y + (HEADER_HEIGHT/4),
+                       layer_bounds.size.w, (HEADER_HEIGHT/2));
 
   // Calculate the size of the text to be drawn, with restricted space
   //GSize text_size = graphics_text_layout_get_content_size(text, font, bounds, GTextOverflowModeWordWrap, GTextAlignmentCenter);
