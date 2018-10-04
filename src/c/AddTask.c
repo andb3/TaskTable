@@ -10,6 +10,8 @@ static Layer *s_header_layer;
 
 static int currentRow;
 
+static char* task_text = "No Description"
+
 
 static ActionBarLayer *s_action_bar;
 static GBitmap *s_up_bitmap, *s_down_bitmap, *s_check_bitmap;
@@ -29,7 +31,7 @@ void add_task_window_load(Window *window) {
   GRect text_bounds = GRect(bounds.origin.x, bounds.origin.y+ HEADER_HEIGHT, bounds.size.w, bounds.size.h-HEADER_HEIGHT);
 
   add_task_text_layer = text_layer_create(text_bounds);
-  text_layer_set_text(add_task_text_layer, "No Description");
+  text_layer_set_text(add_task_text_layer, task_text);
   text_layer_set_text_alignment(add_task_text_layer, GTextAlignmentLeft);
 
   layer_add_child(window_layer, text_layer_get_layer(add_task_text_layer));
@@ -161,6 +163,40 @@ void desc_button_up(){
 
 }
 void add_button_select(){
+
+  DictionaryIterator *index;
+
+  if(app_message_outbox_begin(&outbox) == APP_MSG_OK) {
+
+    dict_write_uint8(outbox, TaskAddIndex, (uint8_t)currentRow);
+
+    DEBUG_MSG("Index: %d", currentRow);
+
+    app_message_outbox_send();
+  }
+
+  DictionaryIterator *desc;
+
+  if(app_message_outbox_begin(&desc) == APP_MSG_OK) {
+
+    dict_write_cstring(desc, TaskAddIndex, (cstring)task_text);
+
+    DEBUG_MSG("Text: %s", task_text);
+
+    app_message_outbox_send();
+  }
+
+  DictionaryIterator *tasktime;
+
+  if(app_message_outbox_begin(&outbox) == APP_MSG_OK) {
+
+    dict_write_uint8(outbox, TaskAddIndex, (uint8_t)task_time);
+
+    DEBUG_MSG("Index: %d", currentRow);
+
+    app_message_outbox_send();
+  }
+
 
 }
 void time_button_down(){

@@ -20,7 +20,9 @@
       "watchface": false
     },
     "messageKeys": [
-      "TaskAdd",
+      "TaskAddIndex",
+      "TaskAddDescription",
+      "TaskAddTime",
       "TableUpdate",
       "RowGetTasks"
     ],
