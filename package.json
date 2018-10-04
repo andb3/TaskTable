@@ -42,7 +42,31 @@
           "type": "bitmap",
           "name": "DOWN_ICON",
           "file": "time.png"
-        }
+        },
+        {
+            "file": "NextAction.png",
+            "memoryFormat": "Smallest",
+            "name": "IMG_NEXTACTION",
+            "spaceOptimization": "memory",
+            "targetPlatforms": null,
+            "type": "bitmap"
+        },
+        {
+            "file": "DownAction2.png",
+            "memoryFormat": "Smallest",
+            "name": "IMAGE_DOWNACTION2",
+            "spaceOptimization": "memory",
+            "targetPlatforms": null,
+            "type": "bitmap"
+        },
+        {
+            "file": "UpAction2.png",
+            "memoryFormat": "Smallest",
+            "name": "IMAGE_UPACTION2",
+            "spaceOptimization": "memory",
+            "targetPlatforms": null,
+            "type": "bitmap"
+        },
 
       ]
     }

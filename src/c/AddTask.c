@@ -2,6 +2,11 @@
 #include "TimeTable.h"
 #include "TaskTable.h"
 #include "AddTask.h"
+#include "alarmtime.h"
+#include "common.h"
+#include "commonwin.h"
+
+
 
 
 static Window *add_task_window;
@@ -10,7 +15,11 @@ static Layer *s_header_layer;
 
 static int currentRow;
 
-static char* task_text = "No Description"
+static char* task_text = "No Description";
+static int daysInFuture = 0;
+static int hourOfDay = 8;
+static int minuteOfDay = 30;
+static int task_time = 0;
 
 
 static ActionBarLayer *s_action_bar;
@@ -166,9 +175,9 @@ void add_button_select(){
 
   DictionaryIterator *index;
 
-  if(app_message_outbox_begin(&outbox) == APP_MSG_OK) {
+  if(app_message_outbox_begin(&index) == APP_MSG_OK) {
 
-    dict_write_uint8(outbox, TaskAddIndex, (uint8_t)currentRow);
+    dict_write_uint8(index, MESSAGE_KEY_TaskAddIndex, (uint8_t)currentRow);
 
     DEBUG_MSG("Index: %d", currentRow);
 
@@ -179,7 +188,7 @@ void add_button_select(){
 
   if(app_message_outbox_begin(&desc) == APP_MSG_OK) {
 
-    dict_write_cstring(desc, TaskAddIndex, (cstring)task_text);
+    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, (cstring_t)task_text);
 
     DEBUG_MSG("Text: %s", task_text);
 
@@ -188,11 +197,11 @@ void add_button_select(){
 
   DictionaryIterator *tasktime;
 
-  if(app_message_outbox_begin(&outbox) == APP_MSG_OK) {
+  if(app_message_outbox_begin(&tasktime) == APP_MSG_OK) {
 
-    dict_write_uint8(outbox, TaskAddIndex, (uint8_t)task_time);
+    dict_write_uint8(tasktime, MESSAGE_KEY_TaskAddTime, (uint8_t)task_time);
 
-    DEBUG_MSG("Index: %d", currentRow);
+    DEBUG_MSG("Time: %d", task_time);
 
     app_message_outbox_send();
   }
@@ -200,7 +209,13 @@ void add_button_select(){
 
 }
 void time_button_down(){
+  show_alarmtime(1, 18, 30, return_time());
+}
 
+void return_time(int s_day, int s_hour, int s_minute){
+  daysInFuture = s_day;
+  hourOfDay = s_hour;
+  minuteOfDay = s_minute;
 }
 
 

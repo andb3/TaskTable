@@ -36,7 +36,7 @@ static void select_callback(struct MenuLayer *menu_layer,
                                         MenuIndex *cell_index, void *context) {
   // Do something in response to the button press
   //window_stack_pop(true);
-  add_task_init();
+  add_task_init((int)cell_index->row);
 
 }
 

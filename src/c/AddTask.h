@@ -12,8 +12,10 @@ void add_task_window_load(Window *window);;
 
 void add_task_window_unload(Window *window);
 
-void add_task_init(void);
+void add_task_init(int passedRow);
 
 void add_task_deinit(void);
+
+void return_time(int s_day, int s_hour, int s_minute);
 
 #endif
