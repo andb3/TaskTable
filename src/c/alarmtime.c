@@ -23,12 +23,9 @@ static enum part s_selected = HOUR;
 static AlarmTimeCallBack s_set_event;
 
 static Window *s_window;
-static GBitmap *s_res_img_upaction;
-static GBitmap *s_res_img_nextaction;
-static GBitmap *s_res_img_downaction;
+
 static GFont s_res_gothic_18_bold;
 static GFont s_res_bitham_30_black;
-static ActionBarLayer *action_layer;
 static Layer *time_layer;
 
 static void draw_time(Layer *layer, GContext *ctx) {
@@ -70,13 +67,9 @@ static void initialise_ui(void) {
   Layer *root_layer = NULL;
   s_window = window_create_fullscreen(&root_layer, &bounds);
 
-  s_res_img_upaction = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_UPACTION2);
-  s_res_img_nextaction = gbitmap_create_with_resource(RESOURCE_ID_IMG_NEXTACTION);
-  s_res_img_downaction = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_DOWNACTION2);
   s_res_gothic_18_bold = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
   s_res_bitham_30_black = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
-  // action_layer
-  action_layer = actionbar_create(s_window, root_layer, &bounds, s_res_img_upaction, s_res_img_nextaction, s_res_img_downaction);
+
 
   time_layer = layer_create_with_proc(root_layer, draw_time,
                                      GRect(0, 0, bounds.size.w-ACTION_BAR_WIDTH, bounds.size.h));
@@ -84,11 +77,8 @@ static void initialise_ui(void) {
 
 static void destroy_ui(void) {
   window_destroy(s_window);
-  action_bar_layer_destroy(action_layer);
   layer_destroy(time_layer);
-  gbitmap_destroy(s_res_img_upaction);
-  gbitmap_destroy(s_res_img_nextaction);
-  gbitmap_destroy(s_res_img_downaction);
+
 }
 
 static void handle_window_unload(Window* window) {
