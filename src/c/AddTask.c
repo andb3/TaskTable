@@ -12,13 +12,14 @@
 static Window *add_task_window;
 static TextLayer *add_task_text_layer;
 static Layer *s_header_layer;
+static Layer *s_footer_layer;
 
 static int currentRow;
 
 static char* task_text = "No Description";
 static int daysInFuture = 0;
 static int hourOfDay = 8;
-static int minuteOfDay = 30;
+static int minuteOfHour = 30;
 static int task_time = 0;
 
 
@@ -30,6 +31,8 @@ void desc_button_up();
 void add_button_select();
 void time_button_down();
 static void header_update_proc(Layer *layer, GContext *ctx);
+static void footer_update_proc(Layer *layer, GContext *ctx);
+
 
 
 
@@ -161,6 +164,114 @@ static void header_update_proc(Layer *layer, GContext *ctx) {
 
 }
 
+static void footer_update_proc(Layer *layer, GContext *ctx) {
+  // Custom drawing happens here!
+
+  GRect layer_bounds = layer_get_bounds(layer);
+
+  #ifdef PBL_COLOR
+
+  // Set the fill color
+  graphics_context_set_fill_color(ctx, GColorPictonBlue);
+
+  // Set the font color
+  graphics_context_set_text_color(ctx, GColorBlack);
+
+  #else
+
+  // Set the fill color
+  graphics_context_set_fill_color(ctx, GColorBlack);
+
+  // Set the font color
+  graphics_context_set_text_color(ctx, GColorWhite);
+
+  #endif
+
+
+  GRect rect_bounds = GRect(layer_bounds.origin.x, layer_bounds.size.h-HEADER_HEIGHT, layer_bounds.size.w, HEADER_HEIGHT);
+
+
+  // Draw a rectangle
+  //graphics_draw_rect(ctx, rect_bounds);
+
+  graphics_fill_rect(ctx, rect_bounds, 0, GCornersAll);
+
+
+  // Load the font
+  //GFont font = fonts_get_system_font(FONT_KEY_LECO_26_BOLD_NUMBERS_AM_PM);
+  GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+
+
+
+  char text[9] = "";
+  char *number_buffer = malloc(sizeof(char)* (3));
+  bool pm = false;
+
+  DEBUG_MSG("Declarations: %c", text[0]);
+
+  if(hourOfDay>12){
+    dec_to_str(number_buffer, hourOfDay-12, 2);
+    if(hourOfDay != 24){
+      pm = true;
+    }
+
+  }else{
+    dec_to_str(number_buffer, hourOfDay, 2);
+  }
+
+  DEBUG_MSG("hour conversion: %s", number_buffer);
+
+  strcat(text, number_buffer);
+  strcat(text, " ");
+
+  DEBUG_MSG("hour strcat: %c", text[0]);
+
+
+  dec_to_str(number_buffer, minuteOfHour, 2);
+
+  DEBUG_MSG("minute conversion");
+
+  strcat(text, number_buffer);
+  strcat(text, " ");
+
+  DEBUG_MSG("minute strcat");
+
+
+  if(pm){
+    strcat(text, "PM");
+  }else{
+    strcat(text, "AM");
+
+  }
+
+  DEBUG_MSG("am/pm strcat");
+  DEBUG_MSG("final: %s", text);
+
+
+
+  //text = "Test Time";
+
+
+  // Determine a reduced bounding box
+  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.size.h - HEADER_HEIGHT,
+                       layer_bounds.size.w, (HEADER_HEIGHT/2));
+
+  DEBUG_MSG("bounding");
+
+
+  // Calculate the size of the text to be drawn, with restricted space
+  //GSize text_size = graphics_text_layout_get_content_size(text, font, bounds, GTextOverflowModeWordWrap, GTextAlignmentCenter);
+
+  // Draw the text
+  graphics_draw_text(ctx, text, font, bounds, GTextOverflowModeWordWrap,
+                                              GTextAlignmentCenter, NULL);
+
+  DEBUG_MSG("drawn");
+
+
+}
+
+
 static void add_task_click_config(void *context)
 {
   window_single_click_subscribe(BUTTON_ID_UP, desc_button_up);
@@ -188,7 +299,7 @@ void add_button_select(){
 
   if(app_message_outbox_begin(&desc) == APP_MSG_OK) {
 
-    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, (cstring_t)task_text);
+    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, /*(cstring_t)*/task_text);
 
     DEBUG_MSG("Text: %s", task_text);
 
@@ -209,13 +320,29 @@ void add_button_select(){
 
 }
 void time_button_down(){
-  show_alarmtime(1, 18, 30, return_time());
+  show_alarmtime(1, 8, 30, return_time);
 }
 
-void return_time(int s_day, int s_hour, int s_minute){
-  daysInFuture = s_day;
-  hourOfDay = s_hour;
-  minuteOfDay = s_minute;
+void return_time(int8_t day, uint8_t hour, uint8_t minute){
+
+  //DEBUG_MSG("return time");
+
+  daysInFuture = day;
+  hourOfDay = hour;
+  minuteOfHour = minute;
+
+  Layer *window_layer = window_get_root_layer(add_task_window);
+  GRect bounds = layer_get_bounds(window_layer);
+
+  // Create canvas layer
+  s_footer_layer = layer_create(bounds);
+
+  // Assign the custom drawing procedure
+  layer_set_update_proc(s_footer_layer, footer_update_proc);
+
+  // Add to Window
+  layer_add_child(window_layer, s_footer_layer);
+
 }
 
 

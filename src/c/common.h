@@ -1,8 +1,8 @@
 #pragma once
 #include <pebble.h>
-  
+
 #define VERSION "3.2"
-  
+
 #ifdef PBL_COLOR
 #define IF_COLOR(statement)   (statement)
 #define IF_BW(statement)
@@ -31,7 +31,7 @@
 #endif
 
 typedef void (*SettingsClosedCallBack)();
-  
+
 typedef struct alarm {
     bool enabled;
     uint8_t hour;

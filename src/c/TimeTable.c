@@ -6,7 +6,6 @@
 
 //int table_size = 8;
 
-void dec_to_str (char* str, uint32_t val, size_t digits);
 
 
 Row menuRows[table_size];

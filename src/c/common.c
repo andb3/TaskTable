@@ -1,6 +1,7 @@
 #include <pebble.h>
 #include "common.h"
 
+
 void dayname(uint8_t day, char *daystr, int slen) {
   switch (day) {
     case 0:
@@ -61,20 +62,20 @@ int64_t day_diff(time_t date1, time_t date2) {
   return ((strip_time(date2) - strip_time(date1)) / (60*60*24));
 }
 
-// Gets the UTC offset of the local time in seconds 
+// Gets the UTC offset of the local time in seconds
 // (pass in an existing localtime struct tm to save creating another one, or else pass NULL)
 time_t get_UTC_offset(struct tm *t) {
 #ifdef PBL_SDK_2
   // SDK2 uses localtime instead of UTC for all time functions so always return 0
-  return 0; 
+  return 0;
 #else
   if (t == NULL) {
     time_t temp = time(NULL);
     t = localtime(&temp);
   }
-  
+
   return t->tm_gmtoff + ((t->tm_isdst > 0) ? 3600 : 0);
-#endif 
+#endif
 }
 
 WeekDay ad2wd(AlarmDay alarmday) {

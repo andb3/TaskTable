@@ -10,6 +10,9 @@ typedef struct {
   int tasks;
 } Row;
 
+void dec_to_str (char* str, uint32_t val, size_t digits);
+
+
 //extern int table_size;
 extern Row menuRows[table_size];
 
