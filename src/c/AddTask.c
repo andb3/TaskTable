@@ -331,6 +331,10 @@ void return_time(int8_t day, uint8_t hour, uint8_t minute){
   hourOfDay = hour;
   minuteOfHour = minute;
 
+
+  //Layer *window_layer = action_bar_layer_get_layer(s_action_bar);
+
+
   Layer *window_layer = window_get_root_layer(add_task_window);
   GRect bounds = layer_get_bounds(window_layer);
 
