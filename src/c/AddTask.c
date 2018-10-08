@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include <stdio.h>
 #include "TimeTable.h"
 #include "TaskTable.h"
 #include "AddTask.h"
@@ -16,7 +17,7 @@ static Layer *s_footer_layer;
 
 static int currentRow;
 
-static char* task_text = "No Description";
+static char* task_text;
 static int daysInFuture = 0;
 static int hourOfDay = 8;
 static int minuteOfHour = 30;
@@ -25,6 +26,8 @@ static int task_time = 0;
 
 static ActionBarLayer *s_action_bar;
 static GBitmap *s_up_bitmap, *s_down_bitmap, *s_check_bitmap;
+static DictationSession *add_task_dictation_session;
+
 
 static void add_task_click_config();
 void desc_button_up();
@@ -32,6 +35,7 @@ void add_button_select();
 void time_button_down();
 static void header_update_proc(Layer *layer, GContext *ctx);
 static void footer_update_proc(Layer *layer, GContext *ctx);
+static void dictation_session_callback(DictationSession *session, DictationSessionStatus status, char *transcription, void *context);
 
 
 
@@ -43,7 +47,10 @@ void add_task_window_load(Window *window) {
   GRect text_bounds = GRect(bounds.origin.x, bounds.origin.y+ HEADER_HEIGHT, bounds.size.w, bounds.size.h-HEADER_HEIGHT);
 
   add_task_text_layer = text_layer_create(text_bounds);
-  text_layer_set_text(add_task_text_layer, task_text);
+  //task_text = malloc(sizeof(char) * (strlen("No Description") + 1));
+  //strcpy(task_text, "No Description");
+  //text_layer_set_text(add_task_text_layer, task_text);
+  text_layer_set_text(add_task_text_layer, "No Description");
   text_layer_set_text_alignment(add_task_text_layer, GTextAlignmentLeft);
 
   layer_add_child(window_layer, text_layer_get_layer(add_task_text_layer));
@@ -280,6 +287,13 @@ static void add_task_click_config(void *context)
 }
 
 void desc_button_up(){
+  // Create new dictation session
+  add_task_dictation_session = dictation_session_create(sizeof(char) * 512,
+                                                 dictation_session_callback, NULL);
+
+  // Start dictation UI
+  dictation_session_start(add_task_dictation_session);
+
 
 }
 void add_button_select(){
@@ -347,6 +361,30 @@ void return_time(int8_t day, uint8_t hour, uint8_t minute){
   // Add to Window
   layer_add_child(window_layer, s_footer_layer);
 
+  action_bar_layer_remove_from_window(s_action_bar);
+  action_bar_layer_set_click_config_provider(s_action_bar, add_task_click_config);
+  action_bar_layer_add_to_window(s_action_bar, add_task_window);
+
+
+}
+
+static void dictation_session_callback(DictationSession *session, DictationSessionStatus status, char *transcription, void *context) {
+
+  if(transcription != NULL){
+    task_text = malloc(sizeof(char) * (strlen(transcription) + 1));
+  }else{
+    task_text = malloc(sizeof(char) * (1));
+  }
+
+
+  //DEBUG_MSG("Status: %d", status);
+
+  if(status==DictationSessionStatusSuccess){
+    strcpy(task_text, transcription);
+    text_layer_set_text(add_task_text_layer, task_text);
+    //text_layer_set_text(add_task_text_layer, "Transcription");
+    //layer_mark_dirty(add_task_text_layer);
+  }
 }
 
 
