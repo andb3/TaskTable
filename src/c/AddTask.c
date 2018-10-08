@@ -370,12 +370,13 @@ void return_time(int8_t day, uint8_t hour, uint8_t minute){
 
 static void dictation_session_callback(DictationSession *session, DictationSessionStatus status, char *transcription, void *context) {
 
-  if(transcription != NULL){
-    task_text = malloc(sizeof(char) * (strlen(transcription) + 1));
-  }else{
-    task_text = malloc(sizeof(char) * (1));
+  if(transcription == NULL){
+    //transcription = malloc(sizeof(char) * (strlen("No Description") + 1));
+    transcription = malloc(sizeof(char) * (1));
+    DEBUG_MSG("Null transcription");
   }
 
+  task_text = malloc(sizeof(char) * (strlen(transcription) + 1));
 
   //DEBUG_MSG("Status: %d", status);
 
