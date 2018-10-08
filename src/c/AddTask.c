@@ -288,7 +288,18 @@ static void add_task_click_config(void *context)
 
 void desc_button_up(){
   // Create new dictation session
-  add_task_dictation_session = dictation_session_create(sizeof(char) * 512,
+
+  int buffer_size = 128;
+
+  #if defined(PBL_ROUND)
+
+  buffer_size = 512;
+
+  #endif
+
+
+
+  add_task_dictation_session = dictation_session_create(sizeof(char) * buffer_size,
                                                  dictation_session_callback, NULL);
 
   // Start dictation UI
