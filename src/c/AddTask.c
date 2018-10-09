@@ -6,6 +6,7 @@
 #include "alarmtime.h"
 #include "common.h"
 #include "commonwin.h"
+#include "AppMessages.h"
 
 
 
@@ -309,24 +310,54 @@ void desc_button_up(){
 }
 void add_button_select(){
 
-  DictionaryIterator *index;
+  DEBUG_MSG("Select pressed");
 
-  if(app_message_outbox_begin(&index) == APP_MSG_OK) {
+  // Calculate the buffer size that is needed for the final Dictionary:
+  //const uint8_t key_count = 3;
+  //const uint32_t size = dict_calc_buffer_size(key_count, sizeof(currentRow), strlen(task_text) + 1, sizeof(task_time));
 
-    dict_write_uint8(index, MESSAGE_KEY_TaskAddIndex, (uint8_t)currentRow);
+  // Stack-allocated buffer in which to create the Dictionary:
+  //uint8_t buffer[size];
+
+  app_message_init();
+
+
+  DictionaryIterator *iter;
+
+  //app_message_outbox_begin(&iter);
+
+  if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
+
+    dict_write_uint8(iter, MESSAGE_KEY_TaskAddIndex, (uint8_t)currentRow);
+
+    dict_write_cstring(iter, MESSAGE_KEY_TaskAddDescription, task_text);
+
+    dict_write_uint32(iter, MESSAGE_KEY_TaskAddTime, (uint32_t)task_time);
 
     DEBUG_MSG("Index: %d", currentRow);
+    DEBUG_MSG("Text: %s", task_text);
+    DEBUG_MSG("Time: %d", task_time);
 
-    app_message_outbox_send();
+
+
+    // Send this message
+    if(app_message_outbox_send() != APP_MSG_OK) {
+      DEBUG_MSG("Error sending the outbox");
+    }else{
+      window_stack_pop(add_task_window);
+    }
+  } else {
+    // The outbox cannot be used right now
+    DEBUG_MSG("Error preparing the outbox");
   }
 
-  DictionaryIterator *desc;
+
+  /*DictionaryIterator *desc;
 
   if(app_message_outbox_begin(&desc) == APP_MSG_OK) {
 
-    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, /*(cstring_t)*/task_text);
+    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, task_text);
 
-    DEBUG_MSG("Text: %s", task_text);
 
     app_message_outbox_send();
   }
@@ -337,10 +368,9 @@ void add_button_select(){
 
     dict_write_uint8(tasktime, MESSAGE_KEY_TaskAddTime, (uint8_t)task_time);
 
-    DEBUG_MSG("Time: %d", task_time);
 
     app_message_outbox_send();
-  }
+  }*/
 
 
 }

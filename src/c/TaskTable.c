@@ -2,6 +2,7 @@
 #include "TimeTable.h"
 #include "TaskTable.h"
 #include "AddTask.h"
+#include "AppMessages.h"
 
 static Window *s_window;
 static MenuLayer *s_menu_layer;

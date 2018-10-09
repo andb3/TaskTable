@@ -1,5 +1,10 @@
 static int table_size = 8;
 
+let taskBuffer = {
+  index: 0
+  task_text: "";
+  task_time: 0;
+}
 
 let table = [];
 let preclasses = ["PE", "Science", "Computer Science", "History", "English", "Spanish", "Engineering", "Math"]
@@ -33,8 +38,15 @@ Pebble.addEventListener('appmessage', function(e) {
 
   console.log('Got message: ' + JSON.stringify(dict));
 
-  if(dict['TaskAdd']){
-    table.
+  if(dict['TaskAddIndex']){
+    taskBuffer.index = dict['TaskAddIndex'];
+    console.log('got index');
+  }else if (dict['TaskAddDescription]') {
+    taskBuffer.task_text = dict['TaskAddDescription'];
+    console.log('got description');
+  }else if (dict['TaskAddTime']) {
+    taskBuffer.task_time = dict['TaskAddTime'];
+    console.log('got time');
   }
 
 });
