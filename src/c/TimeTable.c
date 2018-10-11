@@ -3,6 +3,7 @@
 #include "TaskTable.h"
 #include "TimeTable.h"
 #include "AddTask.h"
+#include "AppMessages.h"
 
 //int table_size = 8;
 
@@ -10,12 +11,16 @@
 
 Row menuRows[table_size];
 
-void setMenuRows(){
-  for(int i = 0; i<= table_size; i++){
-    menuRows[i].name = malloc(sizeof(char) * (1+1));
+void setMenuRows(char *str, int i){
+  //for(int i = 0; i<= table_size; i++){
+    /*menuRows[i].name = malloc(sizeof(char) * (1+1));
     //menuRows[i].name = i;
-    dec_to_str(menuRows[i].name, i, 1);
-  }
+    dec_to_str(menuRows[i].name, i, 1);*/
+
+  //}
+  menuRows[i].name = malloc(sizeof(char) * (strlen(str)+1));
+  strcpy(menuRows[i].name, str);
+
 }
 
 

@@ -4,6 +4,7 @@
 #include <pebble.h>
 #include "TimeTable.h"
 #include "AppMessages.h"
+#include "LoadingWindow.h"
 
 //extern bool table_loaded;
 

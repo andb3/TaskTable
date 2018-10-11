@@ -23,8 +23,8 @@ static uint16_t get_num_rows_callback(MenuLayer *menu_layer,
 
 static void draw_row_callback(GContext *ctx, const Layer *cell_layer,
                                         MenuIndex *cell_index, void *context) {
-  static char s_buff[16];
-  snprintf(s_buff, sizeof(s_buff), "Row %d", (int)cell_index->row);
+  //static char s_buff[16];
+  //snprintf(s_buff, sizeof(s_buff), "Row %d", (int)cell_index->row);
 
   // Draw this row's index
   menu_cell_basic_draw(ctx, cell_layer, menuRows[(int)cell_index->row].name, NULL, NULL);
@@ -68,7 +68,8 @@ void table_window_unload(Window *window) {
 
 void table_init(void) {
 
-  setMenuRows();
+  //setMenuRows();
+
 
   s_window = window_create();
   window_set_window_handlers(s_window, (WindowHandlers) {
@@ -80,7 +81,7 @@ void table_init(void) {
 }
 
 void table_deinit(void) {
-  window_destroy(loading_window);
+  window_destroy(s_window);
 }
 
 
@@ -93,6 +94,7 @@ int main(void) {
     //DEBUG_MSG("table not loaded");
   //}
 
+  loading_init();
 
 
   //APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", s_window);

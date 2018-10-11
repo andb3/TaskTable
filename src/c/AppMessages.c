@@ -2,12 +2,13 @@
 #include "AddTask.h"
 #include "TaskTable.h"
 #include "AppMessages.h"
+#include "LoadingWindow.h"
+#include "TimeTable.h"
 
 
-#define NUM_ITEMS 8
 
 static int s_index;
-static char *table_data[NUM_ITEMS];
+char *table_data;
 static bool table_loaded = false;
 
 static bool s_js_ready;
@@ -31,7 +32,10 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 	Tuple *table_data_tuple = dict_find(iter, MESSAGE_KEY_TableUpdate + s_index);
   if(table_data_tuple) {
     // Store this item
-    table_data[s_index] = table_data_tuple->value->cstring;
+
+    //table_data = table_data_tuple->value->cstring;
+
+		setMenuRows(table_data_tuple->value->cstring, s_index);
 
     // Increment index for next item
     s_index++;
@@ -40,7 +44,7 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
   if(s_index == NUM_ITEMS) {
     // We have reached the end of the sequence
     APP_LOG(APP_LOG_LEVEL_INFO, "All transmission complete!");
-		table_init();
+		load_table();
   }
 
 }
