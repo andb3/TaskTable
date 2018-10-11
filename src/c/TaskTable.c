@@ -7,6 +7,9 @@
 static Window *s_window;
 static MenuLayer *s_menu_layer;
 
+
+bool table_loaded;
+
 static uint16_t get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *data);
 static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data);
 static void select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data);
@@ -77,13 +80,22 @@ void table_init(void) {
 }
 
 void table_deinit(void) {
-  window_destroy(s_window);
+  window_destroy(loading_window);
 }
 
-int main(void) {
-  table_init();
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", s_window);
+
+int main(void) {
+  //table_loaded = false;
+  app_message_init();
+
+  //while (!table_loaded) {
+    //DEBUG_MSG("table not loaded");
+  //}
+
+
+
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", s_window);
 
   app_event_loop();
   table_deinit();

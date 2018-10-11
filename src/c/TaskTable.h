@@ -3,17 +3,18 @@
 
 #include <pebble.h>
 #include "TimeTable.h"
+#include "AppMessages.h"
+
+//extern bool table_loaded;
 
 
 
+void table_window_load(Window *window);;
 
+void table_window_unload(Window *window);
 
-void prv_window_load(Window *window);;
+void table_init(void);
 
-void prv_window_unload(Window *window);
-
-void prv_init(void);
-
-void prv_deinit(void);
+void table_deinit(void);
 
 #endif

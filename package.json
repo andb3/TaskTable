@@ -1,6 +1,6 @@
 {
   "name": "TaskTable",
-  "author": "MakeAwesomeHappen",
+  "author": "andb",
   "version": "1.0.0",
   "keywords": ["pebble-app"],
   "private": true,
@@ -24,7 +24,8 @@
       "TaskAddDescription",
       "TaskAddTime",
       "TableUpdate",
-      "RowGetTasks"
+      "RowGetTasks",
+      "JSReady"
     ],
     "resources": {
       "media": [

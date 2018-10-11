@@ -319,14 +319,24 @@ void add_button_select(){
   // Stack-allocated buffer in which to create the Dictionary:
   //uint8_t buffer[size];
 
-  app_message_init();
 
+  DEBUG_MSG("init appmessage");
+
+
+  /*task_time = daysInFuture*10000;
+  task_time += hourOfDay*100;
+  task_text += minuteOfHour;*/
 
   DictionaryIterator *iter;
+
+  DEBUG_MSG("iter created");
 
   //app_message_outbox_begin(&iter);
 
   if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
+
+    DEBUG_MSG("ok appmessage");
+
 
     dict_write_uint8(iter, MESSAGE_KEY_TaskAddIndex, (uint8_t)currentRow);
 
@@ -334,17 +344,29 @@ void add_button_select(){
 
     dict_write_uint32(iter, MESSAGE_KEY_TaskAddTime, (uint32_t)task_time);
 
+    DEBUG_MSG("written");
+
+
     DEBUG_MSG("Index: %d", currentRow);
     DEBUG_MSG("Text: %s", task_text);
     DEBUG_MSG("Time: %d", task_time);
 
+    DEBUG_MSG("debug");
+
+    if(!comm_is_js_ready()){
+      return;
+    }
 
 
     // Send this message
     if(app_message_outbox_send() != APP_MSG_OK) {
       DEBUG_MSG("Error sending the outbox");
     }else{
+      DEBUG_MSG("sent");
       window_stack_pop(add_task_window);
+      //free(task_text);
+      DEBUG_MSG("free");
+
     }
   } else {
     // The outbox cannot be used right now
@@ -414,6 +436,7 @@ static void dictation_session_callback(DictationSession *session, DictationSessi
   if(transcription == NULL){
     //transcription = malloc(sizeof(char) * (strlen("No Description") + 1));
     transcription = malloc(sizeof(char) * (1));
+    transcription = "";
     DEBUG_MSG("Null transcription");
   }
 

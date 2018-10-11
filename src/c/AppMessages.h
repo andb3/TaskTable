@@ -3,7 +3,7 @@
 
 void app_message_init();
 
-
+bool comm_is_js_ready();
 
 
 
