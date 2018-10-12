@@ -7,8 +7,10 @@
 
 
 
-static int s_index;
+static int string_index;
+static int int_index;
 char *table_data;
+int table_tasks;
 static bool table_loaded = false;
 
 static bool s_js_ready;
@@ -29,19 +31,47 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 		s_js_ready = true;
 	}
 
-	Tuple *table_data_tuple = dict_find(iter, MESSAGE_KEY_TableUpdate + s_index);
+	Tuple *table_data_tuple = dict_find(iter, MESSAGE_KEY_TableUpdateString + string_index);
+	Tuple *table_int_tuple = dict_find(iter, MESSAGE_KEY_TableInt + int_index);
+	DEBUG_MSG("match key: %d",	(int)MESSAGE_KEY_TableInt + int_index);
+
+
   if(table_data_tuple) {
+
+		DEBUG_MSG("Table String");
+
+
     // Store this item
 
     //table_data = table_data_tuple->value->cstring;
 
-		setMenuRows(table_data_tuple->value->cstring, s_index);
+		setMenuRows(table_data_tuple->value->cstring, string_index);
 
     // Increment index for next item
-    s_index++;
-  }
+    string_index++;
+		DEBUG_MSG("String index: %d", string_index);
 
-  if(s_index == NUM_ITEMS) {
+
+  }else if(table_int_tuple) {
+
+		DEBUG_MSG("Table Count");
+
+		// Store this item
+
+		//table_data = table_data_tuple->value->cstring;
+
+		setMenuCount(table_int_tuple->value->int32, int_index);
+
+		// Increment index for next item
+		int_index++;
+
+		DEBUG_MSG("Int index: %d", int_index);
+
+	}else{
+
+	}
+
+  if(string_index == NUM_ITEMS && int_index == NUM_ITEMS) {
     // We have reached the end of the sequence
     APP_LOG(APP_LOG_LEVEL_INFO, "All transmission complete!");
 		load_table();

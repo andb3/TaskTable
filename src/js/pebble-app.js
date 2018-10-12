@@ -10,7 +10,7 @@ var preclasses = ["PE", "Science", "Computer Science", "History", "English", "Sp
 
 
 function setTable(){
-  for (i = 0; i<= table_size; i++){
+  for (i = 0; i< table_size; i++){
 
     var taskarray = [];
 
@@ -24,25 +24,42 @@ function setTable(){
   }
 }
 
+/********************************************************/
+
+
 function sendTable(){
   console.log('sending table of ', preclasses.length);
-  sendNextTableItem(preclasses, 0);
+
+
+
+
+  sendNextTableItemString(preclasses, 0);
+
+  console.log("strings sent");
+
+
+
+
+
+
 }
 
-var keys = require('message_keys');
-function sendNextTableItem(items, index) {
+/****************/
 
-  console.log('sending row ', index, 'of ', items.length);
+var keys = require('message_keys');
+function sendNextTableItemString(strings, index) {
+
+  console.log('sending row(string) ', index, 'of ', strings.length);
 
 
   // Build message
-  var key = keys.TableUpdate + index;
+  var key = keys.TableUpdateString + index;
   //console.log('key');
 
   var dict = {};
   //console.log('dict');
 
-  dict[key] = items[index];
+  dict[key] = strings[index];
   //console.log('set');
 
 
@@ -61,10 +78,70 @@ function sendNextTableItem(items, index) {
     console.log('incremented');
 
 
-    if(index < items.length) {
+    if(index < strings.length) {
       // Send next item
       console.log('sending next item');
-      sendNextTableItem(items, index);
+      sendNextTableItemString(strings, index);
+    } else {
+      console.log('Last item sent!');
+
+      var taskCount = [];
+      for(i = 0; i< table_size; i++){
+        taskCount.push(table[i][1].size);
+      }
+
+      console.log(taskCount);
+
+
+      sendNextTableItemInt(taskCount, 0);
+
+      console.log("count sent");
+    }
+  }, function(e) {
+    console.log('Item transmission failed at index: ' + index);
+  });
+
+  console.log('after send');
+
+}
+
+/****************/
+
+function sendNextTableItemInt(ints, index) {
+
+  console.log('sending row(int) ', index, 'of ', ints.length);
+
+
+  // Build message
+  var key = keys.TableInt + index;
+  console.log(key);
+
+  var dict = {};
+  //console.log('dict');
+
+  dict[key] = ints[index];
+  //console.log('set');
+
+
+  console.log('sending message');
+
+
+  // Send the message
+  Pebble.sendAppMessage(dict, function(e) {
+
+    console.log('success');
+
+
+    // Use success callback to increment index
+    index++;
+
+    console.log('incremented');
+
+
+    if(index < ints.length) {
+      // Send next item
+      console.log('sending next item');
+      sendNextTableItemInt(ints, index);
     } else {
       console.log('Last item sent!');
     }
@@ -75,6 +152,9 @@ function sendNextTableItem(items, index) {
   console.log('after send');
 
 }
+
+/********************************************************/
+
 
 
 Pebble.addEventListener('ready', function() {

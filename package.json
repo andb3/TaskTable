@@ -23,7 +23,8 @@
       "TaskAddIndex",
       "TaskAddDescription",
       "TaskAddTime",
-      "TableUpdate",
+      "TableUpdateString",
+      "TableInt",
       "RowGetTasks",
       "JSReady"
     ],

@@ -3,6 +3,7 @@
 #include "TaskTable.h"
 #include "AddTask.h"
 #include "AppMessages.h"
+#include "TaskList.h"
 
 static Window *s_window;
 static MenuLayer *s_menu_layer;
@@ -44,6 +45,11 @@ static void select_callback(struct MenuLayer *menu_layer,
 
 }
 
+static void long_callback(struct MenuLayer *menu_layer,
+                                        MenuIndex *cell_index, void *context) {
+  tasklist_init((int)cell_index->row);
+}
+
 
 void table_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
@@ -56,6 +62,7 @@ void table_window_load(Window *window) {
       .draw_row = draw_row_callback,
       .get_cell_height = get_cell_height_callback,
       .select_click = select_callback,
+      .select_long_click = long_callback,
   });
   //text_layer_set_text(s_menu_layer, "Press a button");
   //text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);

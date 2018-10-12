@@ -16,7 +16,8 @@ void dec_to_str (char* str, uint32_t val, size_t digits);
 //extern int table_size;
 extern Row menuRows[table_size];
 
-void setMenuRows();
+void setMenuRows(char *str, int i);
+void setMenuCount(int count, int i);
 
 
 

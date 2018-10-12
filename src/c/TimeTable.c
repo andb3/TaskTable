@@ -23,6 +23,12 @@ void setMenuRows(char *str, int i){
 
 }
 
+void setMenuCount(int count, int i){
+
+  menuRows[i].tasks = count;
+
+}
+
 
 void dec_to_str (char* str, uint32_t val, size_t digits)
 {
