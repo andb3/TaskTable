@@ -8,6 +8,8 @@ var taskBuffer = ["", 0];
 var table = [];
 var preclasses = ["PE", "Science", "Computer Science", "History", "English", "Spanish", "Engineering", "Math"];
 
+var writeTable;
+
 
 function setTable(){
   for (i = 0; i< table_size; i++){
@@ -87,7 +89,7 @@ function sendNextTableItemString(strings, index) {
 
       var taskCount = [];
       for(i = 0; i< table_size; i++){
-        taskCount.push(table[i][1].size);
+        taskCount.push(table[i][1].length);
       }
 
       console.log(taskCount);
@@ -160,11 +162,37 @@ function sendNextTableItemInt(ints, index) {
 Pebble.addEventListener('ready', function() {
   console.log('PebbleKit JS ready.');
 
-  setTable();
+  writeTable = true;
+  if(localStorage.getItem('writeTable') == null){
+    console.log("writeTable null");
+    localStorage.setItem('writeTable', JSON.stringify(false));
+  }else{
+    try {
+      console.log("writeTable reading");
+      writeTable = JSON.parse(localStorage.getItem('writeTable'));
+    } catch (e) {
+      console.log("writeTable error");
+      localStorage.setItem('writeTable', JSON.stringify(false));
+    }
+
+  }
+
+  console.log("writeTable: ", writeTable);
+
+  if(!writeTable){
+    console.log("reading table");
+    table = JSON.parse(localStorage.getItem('table_storage'));
+  }else{
+    console.log("writing table");
+    setTable();
+    localStorage.setItem('table_storage', JSON.stringify(table));
+
+  }
   // Update s_js_ready on watch
   Pebble.sendAppMessage({'JSReady': 1});
 
   sendTable();
+
 
   console.log('Sent Ready Message');
 
@@ -197,7 +225,17 @@ Pebble.addEventListener('appmessage', function(e) {
     console.log(table[index][1]);
 
     taskBuffer = ["", 0];
+
   }
+
+  var taskCount = [];
+  for(i = 0; i< table_size; i++){
+    taskCount.push(table[i][1].length);
+  }
+
+  console.log(taskCount);
+
+  localStorage.setItem('table_storage', JSON.stringify(table));
 
 });
 

@@ -322,10 +322,15 @@ void add_button_select(){
 
   DEBUG_MSG("init appmessage");
 
+  DEBUG_MSG("Days: %d", daysInFuture);
+  DEBUG_MSG("Hours: %d", hourOfDay);
+  DEBUG_MSG("Minutes: %d", minuteOfHour);
 
-  /*task_time = daysInFuture*10000;
+  task_time = daysInFuture*10000;
   task_time += hourOfDay*100;
-  task_text += minuteOfHour;*/
+  task_time += minuteOfHour;
+
+  DEBUG_MSG("Time: %d", task_time);
 
   DictionaryIterator *iter;
 
@@ -340,7 +345,12 @@ void add_button_select(){
 
     dict_write_uint8(iter, MESSAGE_KEY_TaskAddIndex, (uint8_t)currentRow);
 
+    DEBUG_MSG("index");
+
+
     dict_write_cstring(iter, MESSAGE_KEY_TaskAddDescription, task_text);
+
+    DEBUG_MSG("desc");
 
     dict_write_uint32(iter, MESSAGE_KEY_TaskAddTime, (uint32_t)task_time);
 

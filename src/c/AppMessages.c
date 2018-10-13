@@ -36,6 +36,14 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 	DEBUG_MSG("match key: %d",	(int)MESSAGE_KEY_TableInt + int_index);
 
 
+	Tuple *debug_tuple = dict_read_first(iter);
+	int tuplesize = dict_size(iter);
+	DEBUG_MSG("Size: %d", (int)tuplesize);
+	if (debug_tuple) {
+		DEBUG_MSG("Recieved Key: %d", (int)debug_tuple->key);
+	}
+
+
   if(table_data_tuple) {
 
 		DEBUG_MSG("Table String");
@@ -49,6 +57,9 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 
     // Increment index for next item
     string_index++;
+		if(string_index == NUM_ITEMS){
+			string_index++;
+		}
 		DEBUG_MSG("String index: %d", string_index);
 
 
@@ -64,6 +75,9 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 
 		// Increment index for next item
 		int_index++;
+		if(int_index == NUM_ITEMS){
+			int_index++;
+		}
 
 		DEBUG_MSG("Int index: %d", int_index);
 
@@ -71,7 +85,7 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 
 	}
 
-  if(string_index == NUM_ITEMS && int_index == NUM_ITEMS) {
+  if(string_index == NUM_ITEMS+1 && int_index == NUM_ITEMS+1) {
     // We have reached the end of the sequence
     APP_LOG(APP_LOG_LEVEL_INFO, "All transmission complete!");
 		load_table();

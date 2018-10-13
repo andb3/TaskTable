@@ -8,6 +8,8 @@ static Layer *s_header_layer;
 static Layer *task_card_placeholder;
 static int drawIndex;
 
+int tasksLength;
+char *text;
 
 static int currentRow;
 
@@ -67,6 +69,21 @@ void tasklist_window_load(Window *window) {
   // Add to Window
   layer_add_child(window_layer, s_header_layer);
 
+
+  tasksLength = get_int_length(menuRows[currentRow].tasks);
+
+  DEBUG_MSG("Int length: %d", tasksLength);
+
+  char *number_buffer = malloc(sizeof(char) *  (tasksLength + 1));
+  dec_to_str(number_buffer, menuRows[currentRow].tasks, tasksLength);
+
+  text = malloc(sizeof(char) * (strlen("Tasks: ") + tasksLength + 1));
+  text = "Tasks: ";
+
+  strcat(text, number_buffer);
+
+  DEBUG_MSG("Final text: %s", text);
+
   //for(int i = 0; i<menuRows[currentRow].tasks; i++){
   for(int i = 0; i<1; i++){
     // Create canvas layer
@@ -119,19 +136,7 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
 
 
 
-  int tasksLength = get_int_length(menuRows[currentRow].tasks);
 
-  DEBUG_MSG("Int length: %d", tasksLength);
-
-  char *number_buffer = malloc(sizeof(char) *  (tasksLength + 1));
-  dec_to_str(number_buffer, menuRows[currentRow].tasks, tasksLength);
-
-  char *text = malloc(sizeof(char) * (strlen("Tasks:") + tasksLength + 1));
-  text = "Tasks:";
-
-  strcat(text, number_buffer);
-
-  DEBUG_MSG("Final text: %s", text);
 
 
   // Determine a reduced bounding box
@@ -202,6 +207,12 @@ static void header_update_proc(Layer *layer, GContext *ctx) {
 
 }
 
+/*static void tasklist_click_config(void *context)
+{
+  window_single_click_subscribe(BUTTON_ID_UP, desc_button_up);
+  window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler) add_button_select);
+  window_single_click_subscribe(BUTTON_ID_DOWN, time_button_down);
+}*/
 
 int get_int_length(unsigned x) {
     if (x >= 100)        return 3;
