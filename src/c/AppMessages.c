@@ -89,7 +89,11 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
     // We have reached the end of the sequence
     APP_LOG(APP_LOG_LEVEL_INFO, "All transmission complete!");
 		load_table();
-  }
+		string_index = 0;
+		int_index = 0;
+  }else if(int_index == NUM_ITEMS+1){
+		int_index = 0;
+	}
 
 }
 

@@ -213,11 +213,11 @@ Pebble.addEventListener('appmessage', function(e) {
     console.log('got index: ', index);
     console.log('into ', table[index][0])
   }
-  if ("TaskAddIndex" in dict) {
+  if ("TaskAddDescription" in dict) {
     taskBuffer[0] = dict['TaskAddDescription'];
     console.log('got description');
   }
-  if ("TaskAddIndex" in dict) {
+  if ("TaskAddTime" in dict) {
     taskBuffer[1] = dict['TaskAddTime'];
     console.log('got time');
 
@@ -226,7 +226,32 @@ Pebble.addEventListener('appmessage', function(e) {
 
     taskBuffer = ["", 0];
 
+    var taskCount = [];
+    for(i = 0; i< table_size; i++){
+      taskCount.push(table[i][1].length);
+    }
+
+    sendNextTableItemInt(taskCount, 0);
+
   }
+  if("TableRemoveRow" in dict && "TableRemoveIndex" in dict){
+    var removerow = dict['TableRemoveRow'];
+    var removeindex = dict['TableRemoveIndex'];
+
+    console.log("removing ", removeindex, " of ", removerow);
+
+    table[removerow][1].splice(removeindex, 1);
+
+    var taskCount = [];
+    for(i = 0; i< table_size; i++){
+      taskCount.push(table[i][1].length);
+    }
+
+
+    sendNextTableItemInt(taskCount, 0);
+  }
+
+
 
   var taskCount = [];
   for(i = 0; i< table_size; i++){

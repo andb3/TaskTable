@@ -384,27 +384,6 @@ void add_button_select(){
   }
 
 
-  /*DictionaryIterator *desc;
-
-  if(app_message_outbox_begin(&desc) == APP_MSG_OK) {
-
-    dict_write_cstring(desc, MESSAGE_KEY_TaskAddDescription, task_text);
-
-
-    app_message_outbox_send();
-  }
-
-  DictionaryIterator *tasktime;
-
-  if(app_message_outbox_begin(&tasktime) == APP_MSG_OK) {
-
-    dict_write_uint8(tasktime, MESSAGE_KEY_TaskAddTime, (uint8_t)task_time);
-
-
-    app_message_outbox_send();
-  }*/
-
-
 }
 void time_button_down(){
   show_alarmtime(1, 8, 30, return_time);
