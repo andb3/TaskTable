@@ -2,9 +2,16 @@
   "name": "TaskTable",
   "author": "andb",
   "version": "1.0.0",
-  "keywords": ["pebble-app"],
+  "keywords": [
+    "pebble-app"
+  ],
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "pebble-clay": "^1.0.4"
+  },
+  "capabilities": [
+    "configurable"
+  ],
   "pebble": {
     "displayName": "TaskTable",
     "uuid": "e5f19689-aff4-4076-b9ab-d9af219c7dcb",
@@ -53,7 +60,6 @@
           "name": "DOWN_ICON",
           "file": "time.png"
         }
-
       ]
     }
   }
