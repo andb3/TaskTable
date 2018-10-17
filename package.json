@@ -35,7 +35,8 @@
       "TableUpdateString",
       "TableInt",
       "RowGetTasks",
-      "JSReady"
+      "JSReady",
+      "ClayTableSize"
     ],
     "resources": {
       "media": [
