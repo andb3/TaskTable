@@ -8,6 +8,8 @@
 #include "commonwin.h"
 #include "AddTask.h"
 
+//const int STATUS_BAR_LAYER_HEIGHT = 20;
+
 
 void day_select_window_load(Window *window);;
 

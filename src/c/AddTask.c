@@ -232,7 +232,7 @@ static void footer_update_proc(Layer *layer, GContext *ctx) {
   DEBUG_MSG("hour conversion: %s", number_buffer);
 
   strcat(text, number_buffer);
-  strcat(text, " ");
+  strcat(text, ":");
 
   DEBUG_MSG("hour strcat: %c", text[0]);
 
