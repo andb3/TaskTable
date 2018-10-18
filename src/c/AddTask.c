@@ -375,6 +375,9 @@ void add_button_select(){
       DEBUG_MSG("Error sending the outbox");
     }else{
       DEBUG_MSG("sent");
+
+      setMenuCount(menuRows[currentRow].tasks + 1, currentRow);
+
       window_stack_pop(add_task_window);
       //free(task_text);
       DEBUG_MSG("free");

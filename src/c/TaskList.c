@@ -130,6 +130,8 @@ static void update_task_count() {
   number_buffer = NULL;
 
   DEBUG_MSG("Final text: %s", text);
+
+
 }
 
 static void card_update_proc(Layer *layer, GContext *ctx) {
@@ -276,7 +278,7 @@ static void tasklist_button_select() {
         //window_stack_pop(add_task_window);
         //free(task_text);
 
-        menuRows[currentRow].tasks -= 1;
+        setMenuCount(menuRows[currentRow].tasks - 1, currentRow);
         update_task_count();
         layer_mark_dirty(task_card_placeholder);
 
