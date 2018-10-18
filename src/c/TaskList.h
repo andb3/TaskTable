@@ -20,4 +20,7 @@ void tasklist_deinit(void);
 
 void load_table_from_tasklist();
 
+int get_int_length(unsigned x);
+
+
 #endif

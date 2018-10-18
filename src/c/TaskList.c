@@ -19,7 +19,6 @@ static void card_update_proc(Layer *layer, GContext *ctx);
 static void update_task_count();
 static void tasklist_click_config(void *context);
 static void tasklist_button_select();
-int get_int_length(unsigned x);
 
 
 void tasklist_window_unload(Window *window) {

@@ -7,6 +7,8 @@
 #include "common.h"
 #include "commonwin.h"
 #include "AppMessages.h"
+#include "DaySelect.h"
+
 
 
 
@@ -386,7 +388,11 @@ void add_button_select(){
 
 }
 void time_button_down(){
-  show_alarmtime(1, 8, 30, return_time);
+
+  //show_alarmtime(1, 8, 30, return_time);
+
+
+  day_select_init(return_time);
 }
 
 void return_time(int8_t day, uint8_t hour, uint8_t minute){

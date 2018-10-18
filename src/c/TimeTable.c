@@ -1,13 +1,16 @@
 #include <pebble.h>
 #include <stdint.h>
+#include <@smallstoneapps/linked-list/linked-list.h>
 #include "TaskTable.h"
 #include "TimeTable.h"
 #include "AddTask.h"
 #include "AppMessages.h"
+#include "TaskList.h"
 
 //int table_size = 8;
 
-
+void setMenuExpand(int index);
+void setMenuCollapse(int index);
 
 Row menuRows[table_size];
 
@@ -21,12 +24,80 @@ void setMenuRows(char *str, int i){
   menuRows[i].name = malloc(sizeof(char) * (strlen(str)+1));
   strcpy(menuRows[i].name, str);
 
+
+
+
+
 }
+
 
 void setMenuCount(int count, int i){
 
   menuRows[i].tasks = count;
+  setMenuExpand(i);
+  setMenuCollapse(i);
 
+  DEBUG_MSG("Collapse: %s", menuRows[i].menuCollapse);
+  DEBUG_MSG("Expand: %s", menuRows[i].menuExpand);
+
+}
+
+void setMenuExpand(int index) {
+
+  DEBUG_MSG("text declared");
+
+
+  int tasksLength = get_int_length(menuRows[index].tasks);
+
+  DEBUG_MSG("Int length: %d", tasksLength);
+
+  char *number_buffer = malloc(sizeof(char) *  (tasksLength + 1));
+  dec_to_str(number_buffer, menuRows[index].tasks, tasksLength);
+
+  DEBUG_MSG("number_buffer: %s", number_buffer);
+
+  menuRows[index].menuExpand = malloc(sizeof(char) * (strlen(" Tasks") + tasksLength + 1));
+  //menuRows[index].menuExpand = "Tasks: ";
+
+  DEBUG_MSG("mid text: %s", menuRows[index].menuExpand);
+
+  strcpy(menuRows[index].menuExpand, number_buffer);
+  strcat(menuRows[index].menuExpand, " Tasks");
+
+
+  free(number_buffer);
+  number_buffer = NULL;
+
+  DEBUG_MSG("Final text: %s", menuRows[index].menuExpand);
+
+
+}
+
+void setMenuCollapse(int index) {
+  int tasksLength = get_int_length(menuRows[index].tasks);
+
+  DEBUG_MSG("Int length: %d", tasksLength);
+
+  char *number_buffer = malloc(sizeof(char) *  (tasksLength + 1));
+  dec_to_str(number_buffer, menuRows[index].tasks, tasksLength);
+
+  DEBUG_MSG("number_buffer: %s", number_buffer);
+
+  menuRows[index].menuCollapse = malloc(sizeof(char) * (strlen(menuRows[index].name) + strlen(": ") + tasksLength + 1));
+  //menuRows[index].menuCollapse = "Tasks: ";
+
+  strcpy(menuRows[index].menuCollapse, menuRows[index].name);
+
+  strcat(menuRows[index].menuCollapse, ": ");
+
+  DEBUG_MSG("mid text: %s", menuRows[index].menuCollapse);
+
+  strcat(menuRows[index].menuCollapse, number_buffer);
+
+  free(number_buffer);
+  number_buffer = NULL;
+
+  DEBUG_MSG("Final text: %s", menuRows[index].menuCollapse);
 }
 
 

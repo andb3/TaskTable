@@ -9,6 +9,7 @@ static Window *s_window;
 static MenuLayer *s_menu_layer;
 
 
+
 bool table_loaded;
 
 static uint16_t get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *data);
@@ -27,13 +28,31 @@ static void draw_row_callback(GContext *ctx, const Layer *cell_layer,
   //static char s_buff[16];
   //snprintf(s_buff, sizeof(s_buff), "Row %d", (int)cell_index->row);
 
-  // Draw this row's index
-  menu_cell_basic_draw(ctx, cell_layer, menuRows[(int)cell_index->row].name, NULL, NULL);
+  //DEBUG_MSG("Row %d", (int)cell_index->row);
+
+  if(menu_cell_layer_is_highlighted(cell_layer)){
+
+
+    menu_cell_basic_draw(ctx, cell_layer, menuRows[(int)cell_index->row].name, menuRows[(int)cell_index->row].menuExpand, NULL);
+
+
+
+  }else{
+
+    DEBUG_MSG("not highlighted");
+
+
+    // Draw this row's index
+    menu_cell_basic_draw(ctx, cell_layer, menuRows[(int)cell_index->row].menuCollapse, NULL, NULL);
+
+  }
 }
 
 static int16_t get_cell_height_callback(struct MenuLayer *menu_layer,
                                         MenuIndex *cell_index, void *context) {
+
   const int16_t cell_height = 44;
+
   return cell_height;
 }
 

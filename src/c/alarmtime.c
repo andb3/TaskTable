@@ -59,6 +59,9 @@ static void draw_time(Layer *layer, GContext *ctx) {
   graphics_draw_text(ctx, s_minutestr, s_res_bitham_30_black, GRect((bounds.size.w/2)+5, (bounds.size.h/2)-16, 48, 36),
                      GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
 
+  DEBUG_MSG("time drawn");
+
+
 }
 
 static void initialise_ui(void) {
@@ -73,6 +76,9 @@ static void initialise_ui(void) {
 
   time_layer = layer_create_with_proc(root_layer, draw_time,
                                      GRect(0, 0, bounds.size.w-ACTION_BAR_WIDTH, bounds.size.h));
+
+  DEBUG_MSG("ui init");
+
 }
 
 static void destroy_ui(void) {
@@ -100,6 +106,8 @@ static void update_alarmtime() {
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 
+  DEBUG_MSG("select click");
+
   if (s_selected == HOUR) {
     // Move to the minute part
     s_selected = MINUTE;
@@ -114,6 +122,9 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
+
+  DEBUG_MSG("up click");
+
 
   if (s_selected == HOUR) {
     // Increment hour (wrap around)
@@ -130,6 +141,9 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
+
+  DEBUG_MSG("down click");
+
 
   if (s_selected == HOUR) {
     // Decrement hour (wrap around)
@@ -154,10 +168,19 @@ static void click_config_provider(void *context) {
 }
 
 void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack set_event) {
+
+  DEBUG_MSG("show_alarmtime");
+
   initialise_ui();
+
+  DEBUG_MSG("initialise_ui");
+
   window_set_window_handlers(s_window, (WindowHandlers) {
     .unload = handle_window_unload,
   });
+
+  DEBUG_MSG("handlers");
+
 
   s_selected = HOUR;
   // Store the passed in parameters
@@ -165,10 +188,19 @@ void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack 
   s_hour = hour;
   s_minute = minute;
 
+  DEBUG_MSG("passed parameters");
+
+
   // Store pointer to callback for when done
   s_set_event = set_event;
 
+  DEBUG_MSG("callback");
+
+
   char daystr[10];
+
+  DEBUG_MSG("daystr");
+
 
   // Generate alarm screen time
   switch (day) {
@@ -185,11 +217,23 @@ void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack 
       break;
   }
 
+  DEBUG_MSG("screentime");
+
+
   update_alarmtime();
+
+  DEBUG_MSG("update_alarmtime");
+
 
   window_set_click_config_provider(s_window, click_config_provider);
 
+  DEBUG_MSG("click_config");
+
+
   window_stack_push(s_window, true);
+
+  DEBUG_MSG("window push");
+
 }
 
 void hide_alarmtime(void) {
