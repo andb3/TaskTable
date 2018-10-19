@@ -114,7 +114,7 @@ static void draw_row_callback(GContext *ctx, const Layer *cell_layer,
 
   GFont font = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK	);
   GRect layer_bounds = layer_get_bounds(cell_layer);
-  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.size.h/2 - 30,
+  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.size.h/2 - 20,
                        layer_bounds.size.w, layer_bounds.size.h/2);
 
   DEBUG_MSG("Row %d", (int)cell_index->row);
