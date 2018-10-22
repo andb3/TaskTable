@@ -17,9 +17,11 @@ void day_select_window_unload(Window *window);
 
 void day_select_init(AlarmTimeCallBack set_event);
 
-void day_select_deinit(void);
+void day_select_deinit();
 
 void load_alarm();
+
+void after_alarm();
 
 
 

@@ -1,5 +1,7 @@
 *.lock-waf_linux2_build
 *.package-lock.json
 node_modules/
-build/
+build/*
 .atom-build.yaml
+
+!build/TaskTable.pbw

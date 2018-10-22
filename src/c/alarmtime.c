@@ -2,6 +2,7 @@
 #include "common.h"
 #include "commonwin.h"
 #include "AddTask.h"
+#include "DaySelect.h"
 #include <pebble.h>
 
 // Screen for setting alarm times
@@ -23,7 +24,6 @@ static enum part s_selected = HOUR;
 static AlarmTimeCallBack s_set_event;
 
 static Window *s_window;
-static Window *remove_window;
 
 static GFont s_res_gothic_18_bold;
 static GFont s_res_bitham_30_black;
@@ -115,7 +115,7 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
     update_alarmtime();
   } else {
     // Close this screen
-    hide_alarmtime(remove_window);
+    hide_alarmtime();
     // Pass the alarm day and time back
     s_set_event(s_day, s_hour, s_minute);
   }
@@ -168,7 +168,7 @@ static void click_config_provider(void *context) {
   window_single_repeating_click_subscribe(BUTTON_ID_DOWN, 50, down_click_handler);
 }
 
-void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack set_event, Window *date_window) {
+void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack set_event) {
 
   DEBUG_MSG("show_alarmtime");
 
@@ -188,8 +188,6 @@ void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack 
   s_day = day;
   s_hour = hour;
   s_minute = minute;
-
-  remove_window = date_window;
 
   DEBUG_MSG("passed parameters");
 
@@ -241,7 +239,11 @@ void show_alarmtime(int8_t day, uint8_t hour, uint8_t minute, AlarmTimeCallBack 
 
 }
 
-void hide_alarmtime(Window *date_window) {
-  window_stack_remove(date_window, false);
+void hide_alarmtime() {
+  DEBUG_MSG("before deinit");
+  //day_select_deinit(false);
+  after_alarm();
+  DEBUG_MSG("after deinit");
   window_stack_remove(s_window, true);
+  DEBUG_MSG("after remove");
 }

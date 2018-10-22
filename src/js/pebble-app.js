@@ -183,7 +183,12 @@ Pebble.addEventListener('ready', function() {
 
   if(!writeTable){
     console.log("reading table");
+    console.log(localStorage.getItem('table_storage'));
+    try{
     table = JSON.parse(localStorage.getItem('table_storage'));
+  }catch(e){
+    setTable();
+  }
   }else{
     console.log("writing table");
     setTable();

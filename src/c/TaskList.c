@@ -30,7 +30,7 @@ void tasklist_window_unload(Window *window) {
 
   DEBUG_MSG("after free");
 
-
+  
 }
 
 void tasklist_init(int row) {
@@ -88,11 +88,11 @@ void tasklist_window_load(Window *window) {
     // Create canvas layer
 
     GRect card_bounds = GRect(
-     bounds.origin.x + CARD_OFFSET_W,
-     bounds.origin.y + HEADER_HEIGHT + CARD_OFFSET_H + (i * (CARD_HEIGHT + CARD_OFFSET_H)),
-     bounds.size.w - (2 * CARD_OFFSET_W),
-     CARD_HEIGHT
-   );
+      bounds.origin.x + CARD_OFFSET_W,
+      bounds.origin.y + HEADER_HEIGHT + CARD_OFFSET_H + (i * (CARD_HEIGHT + CARD_OFFSET_H)),
+      bounds.size.w - (2 * CARD_OFFSET_W),
+      CARD_HEIGHT
+    );
 
     task_card_placeholder = layer_create(card_bounds);
 
@@ -166,134 +166,134 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
 
   // Determine a reduced bounding box
   GRect text_bounds = GRect(top_bounds.origin.x, top_bounds.origin.y + (CARD_HEIGHT/4),
-                       layer_bounds.size.w, (CARD_HEIGHT/2));
+  layer_bounds.size.w, (CARD_HEIGHT/2));
 
 
   // Draw the text
   graphics_draw_text(ctx, text, font, text_bounds, GTextOverflowModeWordWrap,
-                                              GTextAlignmentLeft, NULL);
+    GTextAlignmentLeft, NULL);
 
-}
-
-static void header_update_proc(Layer *layer, GContext *ctx) {
-  // Custom drawing happens here!
-
-  GRect layer_bounds = layer_get_bounds(layer);
-
-  #ifdef PBL_COLOR
-
-  // Set the fill color
-  graphics_context_set_fill_color(ctx, GColorPictonBlue);
-
-  // Set the font color
-  graphics_context_set_text_color(ctx, GColorBlack);
-
-  #else
-
-  // Set the fill color
-  graphics_context_set_fill_color(ctx, GColorBlack);
-
-  // Set the font color
-  graphics_context_set_text_color(ctx, GColorWhite);
-
-  #endif
-
-
-  GRect rect_bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y, layer_bounds.size.w, HEADER_HEIGHT);
-
-
-  // Draw a rectangle
-  //graphics_draw_rect(ctx, rect_bounds);
-
-  graphics_fill_rect(ctx, rect_bounds, 0, GCornersAll);
-
-
-  // Load the font
-  GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-
-
-  //char *text = "Task List";
-  char *text = malloc(sizeof(char) * (strlen(menuRows[currentRow].name) + 1));
-  text = menuRows[currentRow].name;
-
-
-  // Determine a reduced bounding box
-  GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y + (HEADER_HEIGHT/4),
-                       layer_bounds.size.w, (HEADER_HEIGHT/2));
-
-  // Calculate the size of the text to be drawn, with restricted space
-  //GSize text_size = graphics_text_layout_get_content_size(text, font, bounds, GTextOverflowModeWordWrap, GTextAlignmentCenter);
-
-  // Draw the text
-  graphics_draw_text(ctx, text, font, bounds, GTextOverflowModeWordWrap,
-                                              GTextAlignmentCenter, NULL);
-
-
-
-}
-
-static void tasklist_click_config(void *context)
-{
-  //window_single_click_subscribe(BUTTON_ID_UP, desc_button_up);
-  window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler) tasklist_button_select);
-  //window_single_click_subscribe(BUTTON_ID_DOWN, time_button_down);
-}
-
-static void tasklist_button_select() {
-
-  if(menuRows[currentRow].tasks>0){
-
-    DictionaryIterator *iter;
-
-    DEBUG_MSG("iter created");
-
-    if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
-
-      DEBUG_MSG("ok appmessage");
-
-
-      dict_write_uint8(iter, MESSAGE_KEY_TableRemoveRow, (uint8_t)currentRow);
-
-      DEBUG_MSG("index");
-
-      task_index = 0;
-
-      dict_write_uint8(iter, MESSAGE_KEY_TableRemoveIndex, (uint8_t)task_index);
-
-      DEBUG_MSG("written");
-
-
-
-      DEBUG_MSG("debug");
-
-      if(!comm_is_js_ready()){
-        return;
-      }
-
-      // Send this message
-      if(app_message_outbox_send() != APP_MSG_OK) {
-        DEBUG_MSG("Error sending the outbox");
-      }else{
-        DEBUG_MSG("sent");
-        //window_stack_pop(add_task_window);
-        //free(task_text);
-
-        setMenuCount(menuRows[currentRow].tasks - 1, currentRow);
-        update_task_count();
-        layer_mark_dirty(task_card_placeholder);
-
-        DEBUG_MSG("free");
-
-      }
-    } else {
-      // The outbox cannot be used right now
-      DEBUG_MSG("Error preparing the outbox");
-    }
   }
-}
 
-int get_int_length(unsigned x) {
-    if (x >= 100)        return 3;
-    if (x >= 10)         return 2;
-    return 1;
-}
+  static void header_update_proc(Layer *layer, GContext *ctx) {
+    // Custom drawing happens here!
+
+    GRect layer_bounds = layer_get_bounds(layer);
+
+    #ifdef PBL_COLOR
+
+    // Set the fill color
+    graphics_context_set_fill_color(ctx, GColorPictonBlue);
+
+    // Set the font color
+    graphics_context_set_text_color(ctx, GColorBlack);
+
+    #else
+
+    // Set the fill color
+    graphics_context_set_fill_color(ctx, GColorBlack);
+
+    // Set the font color
+    graphics_context_set_text_color(ctx, GColorWhite);
+
+    #endif
+
+
+    GRect rect_bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y, layer_bounds.size.w, HEADER_HEIGHT);
+
+
+    // Draw a rectangle
+    //graphics_draw_rect(ctx, rect_bounds);
+
+    graphics_fill_rect(ctx, rect_bounds, 0, GCornersAll);
+
+
+    // Load the font
+    GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+
+
+    //char *text = "Task List";
+    char *text = malloc(sizeof(char) * (strlen(menuRows[currentRow].name) + 1));
+    text = menuRows[currentRow].name;
+
+
+    // Determine a reduced bounding box
+    GRect bounds = GRect(layer_bounds.origin.x, layer_bounds.origin.y + (HEADER_HEIGHT/4),
+    layer_bounds.size.w, (HEADER_HEIGHT/2));
+
+    // Calculate the size of the text to be drawn, with restricted space
+    //GSize text_size = graphics_text_layout_get_content_size(text, font, bounds, GTextOverflowModeWordWrap, GTextAlignmentCenter);
+
+    // Draw the text
+    graphics_draw_text(ctx, text, font, bounds, GTextOverflowModeWordWrap,
+      GTextAlignmentCenter, NULL);
+
+
+
+    }
+
+    static void tasklist_click_config(void *context)
+    {
+      //window_single_click_subscribe(BUTTON_ID_UP, desc_button_up);
+      window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler) tasklist_button_select);
+      //window_single_click_subscribe(BUTTON_ID_DOWN, time_button_down);
+    }
+
+    static void tasklist_button_select() {
+
+      if(menuRows[currentRow].tasks>0){
+
+        DictionaryIterator *iter;
+
+        DEBUG_MSG("iter created");
+
+        if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
+
+          DEBUG_MSG("ok appmessage");
+
+
+          dict_write_uint8(iter, MESSAGE_KEY_TableRemoveRow, (uint8_t)currentRow);
+
+          DEBUG_MSG("index");
+
+          task_index = 0;
+
+          dict_write_uint8(iter, MESSAGE_KEY_TableRemoveIndex, (uint8_t)task_index);
+
+          DEBUG_MSG("written");
+
+
+
+          DEBUG_MSG("debug");
+
+          if(!comm_is_js_ready()){
+            return;
+          }
+
+          // Send this message
+          if(app_message_outbox_send() != APP_MSG_OK) {
+            DEBUG_MSG("Error sending the outbox");
+          }else{
+            DEBUG_MSG("sent");
+            //window_stack_pop(add_task_window);
+            //free(task_text);
+
+            setMenuCount(menuRows[currentRow].tasks - 1, currentRow);
+            update_task_count();
+            layer_mark_dirty(task_card_placeholder);
+
+            DEBUG_MSG("free");
+
+          }
+        } else {
+          // The outbox cannot be used right now
+          DEBUG_MSG("Error preparing the outbox");
+        }
+      }
+    }
+
+    int get_int_length(unsigned x) {
+      if (x >= 100)        return 3;
+      if (x >= 10)         return 2;
+      return 1;
+    }

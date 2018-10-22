@@ -172,6 +172,7 @@ static void draw_row_callback(GContext *ctx, const Layer *cell_layer,
 
 
   //TODO: Next week lead to date select ("select date"?)
+  //TODO: Put into array for quicker access
 
 
   if(menu_cell_layer_is_highlighted(cell_layer)){
@@ -219,7 +220,8 @@ static void select_callback(struct MenuLayer *menu_layer,
 
 
 void day_select_window_unload(Window *window) {
-
+  window_stack_remove(window, true);
+  day_select_deinit();
 }
 
 /*static void day_select_click_config(void *context)
@@ -250,19 +252,26 @@ void day_select_init(AlarmTimeCallBack got_callback) {
 
 }
 
-void day_select_deinit(void) {
-  window_destroy(day_select_window);
+void day_select_deinit() {
   content_indicator_destroy(s_indicator_up);
   content_indicator_destroy(s_indicator_down);
+  menu_layer_destroy(day_select_menu_layer);
+  layer_destroy(s_indicator_up_layer);
+  layer_destroy(s_indicator_down_layer);
+  DEBUG_MSG("before window");
+  window_destroy(day_select_window);
+
+}
+
+void after_alarm(){
+  window_stack_remove(day_select_window, false);
 }
 
 void load_alarm(int day){
 
   DEBUG_MSG("day_select table");
 
-
-
   DEBUG_MSG("after pop");
 
-  show_alarmtime(day, 8, 30, set_event, day_select_window);
+  show_alarmtime(day, 8, 30, set_event);
 }
