@@ -8,6 +8,7 @@ static Window *tasklist_window;
 static Layer *s_header_layer;
 static MenuLayer *task_menu_layer;
 
+static void* cacheArrayPointer;
 
 int tasksLength;
 char *text;
@@ -22,6 +23,7 @@ static uint16_t get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_in
 static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data);
 static void select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data);
 static int16_t get_cell_height_callback(struct MenuLayer *menu_layer, MenuIndex *cell_index, void *context);
+static void setTaskCache();
 
 
 void tasklist_window_unload(Window *window) {
@@ -32,7 +34,6 @@ void tasklist_window_unload(Window *window) {
   free(text);
 
   DEBUG_MSG("after free");
-
 
 }
 
@@ -174,14 +175,16 @@ static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex 
   DEBUG_MSG("crash time: %d", task->time);
   //DEBUG_MSG("crash text: %s", task->description);
 
-  char *card_text;
-  if(task->description!=NULL){
+  /*char *card_text;
+  if(task->description!=NULL || strcmp(task->description, "") != 0){
+    DEBUG_MSG("Showing task text");
     card_text = malloc(sizeof(char) * (strlen(task->description) + 1));
     strcpy(card_text, task->description);
   }else{
-    card_text = malloc(sizeof(char) * (strlen("") + 1));
-    strcpy(card_text, "");
-  }
+    DEBUG_MSG("Showing no text");
+    card_text = malloc(sizeof(char) * (strlen("•") + 1));
+    strcpy(card_text, "•");
+  }*/
 
   DEBUG_MSG("after text assign");
 
@@ -192,7 +195,7 @@ static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex 
 
 
   // Draw the text
-  graphics_draw_text(ctx, card_text, font, text_bounds, GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
+  graphics_draw_text(ctx, task->description, font, text_bounds, GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
 
 }
 
@@ -228,7 +231,11 @@ static void update_task_count() {
 
   DEBUG_MSG("Final text: %s", text);
 
+  //menu_layer_reload_data(task_menu_layer);
 
+  //TODO: Remove card in MenuLayer
+  //TODO: Clear cache to make middle removed item go away not last
+  //TODO: Update locally before response
 }
 
 
@@ -288,6 +295,37 @@ static void header_update_proc(Layer *layer, GContext *ctx) {
 
 }
 
+static void setTaskCache(){
+
+  /*int length = linked_list_count(menuRows[currentRow].taskList);
+
+  Task taskCache[length];
+
+  for(int i = 0; i<length; i++){
+
+    Task *task;
+    task = linked_list_get(menuRows[currentRow].taskList, i);
+
+    DEBUG_MSG("after task pointer");
+    DEBUG_MSG("crash time: %d", task->time);
+    //DEBUG_MSG("crash text: %s", task->description);
+
+    char *card_text;
+    if(task->description!=NULL || strcmp(task->description, "") != 0){
+      DEBUG_MSG("Showing task text");
+      card_text = malloc(sizeof(char) * (strlen(task->description) + 1));
+      strcpy(card_text, task->description);
+    }else{
+      DEBUG_MSG("Showing no text");
+      card_text = malloc(sizeof(char) * (strlen("•") + 1));
+      strcpy(card_text, "•");
+    }
+
+    taskCache[i].description
+
+    DEBUG_MSG("after text assign");
+  }*/
+}
 
 
 
