@@ -136,10 +136,10 @@ static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex 
   GRect bounds = layer_get_bounds(cell_layer);
 
   GRect card_bounds = GRect(
-  bounds.origin.x + CARD_OFFSET_W,
-  bounds.origin.y + CARD_OFFSET_H,
-  bounds.size.w - (2 * CARD_OFFSET_W),
-  CARD_HEIGHT
+    bounds.origin.x + CARD_OFFSET_W,
+    bounds.origin.y + CARD_OFFSET_H,
+    bounds.size.w - (2 * CARD_OFFSET_W),
+    CARD_HEIGHT
   );
 
   GRect top_bounds =  GRect(card_bounds.origin.x+2, card_bounds.origin.y+2, card_bounds.size.w-4, card_bounds.size.h-4);
@@ -172,10 +172,16 @@ static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex 
 
   DEBUG_MSG("after task pointer");
   DEBUG_MSG("crash time: %d", task->time);
-  DEBUG_MSG("crash text: %s", task->description);
+  //DEBUG_MSG("crash text: %s", task->description);
 
-  char *card_text = malloc(sizeof(char) * (strlen(task->description) + 1));
-  strcpy(card_text, task->description);
+  char *card_text;
+  if(task->description!=NULL){
+    card_text = malloc(sizeof(char) * (strlen(task->description) + 1));
+    strcpy(card_text, task->description);
+  }else{
+    card_text = malloc(sizeof(char) * (strlen("") + 1));
+    strcpy(card_text, "");
+  }
 
   DEBUG_MSG("after text assign");
 

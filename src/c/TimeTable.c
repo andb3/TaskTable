@@ -117,6 +117,12 @@ void setTask(int row, /*int index,*/ char *str, int s_time){
 
   insertTask.time = s_time;
 
+  if(linked_list_count(menuRows[row].taskList)==0){
+    linked_list_clear(menuRows[row].taskList);
+    menuRows[row].taskList = linked_list_create_root();
+
+  }
+
   //linked_list_insert(menuRows[row].taskList, insertTask, index);
   linked_list_append(menuRows[row].taskList, &insertTask);
 
