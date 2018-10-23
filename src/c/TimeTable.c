@@ -59,7 +59,7 @@ void setMenuExpand(int index) {
   menuRows[index].menuExpand = malloc(sizeof(char) * (strlen(" Tasks") + tasksLength + 1));
   //menuRows[index].menuExpand = "Tasks: ";
 
-  DEBUG_MSG("mid text: %s", menuRows[index].menuExpand);
+  DEBUG_MSG("mid text");
 
   strcpy(menuRows[index].menuExpand, number_buffer);
   strcat(menuRows[index].menuExpand, " Tasks");
@@ -98,6 +98,32 @@ void setMenuCollapse(int index) {
   number_buffer = NULL;
 
   DEBUG_MSG("Final text: %s", menuRows[index].menuCollapse);
+}
+
+void setTask(int row, /*int index,*/ char *str, int s_time){
+
+  DEBUG_MSG("Setting Task %d", row);
+  DEBUG_MSG("Task Description: %s", str);
+  DEBUG_MSG("Task Time %d", s_time);
+
+
+
+  Task insertTask;
+  insertTask.description = malloc(sizeof(char) * (strlen(str) + 1));
+  strcpy(insertTask.description, str);
+
+  DEBUG_MSG("Task Description: %s", insertTask.description);
+
+
+  insertTask.time = s_time;
+
+  //linked_list_insert(menuRows[row].taskList, insertTask, index);
+  linked_list_append(menuRows[row].taskList, &insertTask);
+
+  DEBUG_MSG("Count: %d", linked_list_count(menuRows[row].taskList));
+
+
+  //DEBUG_MSG("Task name: %s", menuRows[row].taskList)
 }
 
 

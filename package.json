@@ -35,7 +35,10 @@
       "TableRemoveIndex",
       "TableUpdateString",
       "TableInt",
-      "RowGetTasks",
+      "RowGetTasksRow",
+      "RowGetTasksIndex",
+      "RowGetTasksString",
+      "RowGetTasksTime",
       "JSReady",
       "ClayTableSize"
     ],

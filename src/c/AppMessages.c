@@ -36,12 +36,12 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
 	DEBUG_MSG("match key: %d",	(int)MESSAGE_KEY_TableInt + int_index);
 
 
-	Tuple *debug_tuple = dict_read_first(iter);
+	/*Tuple *debug_tuple = dict_read_first(iter);
 	int tuplesize = dict_size(iter);
 	DEBUG_MSG("Size: %d", (int)tuplesize);
 	if (debug_tuple) {
 		DEBUG_MSG("Recieved Key: %d", (int)debug_tuple->key);
-	}
+	}*/
 
 
   if(table_data_tuple) {
@@ -94,6 +94,23 @@ static void in_received_handler(DictionaryIterator *iter, void *context){
   }else if(int_index == NUM_ITEMS+1){
 		int_index = 0;
 	}
+
+	Tuple *task_row_tuple = dict_find(iter, MESSAGE_KEY_RowGetTasksRow);
+	Tuple *task_index_tuple = dict_find(iter, MESSAGE_KEY_RowGetTasksIndex);
+	Tuple *task_text_tuple = dict_find(iter, MESSAGE_KEY_RowGetTasksString);
+	Tuple *task_time_tuple = dict_find(iter, MESSAGE_KEY_RowGetTasksTime);
+
+	if(task_row_tuple&&task_index_tuple&&task_text_tuple&&task_time_tuple){
+
+		DEBUG_MSG("Row: %d", (int)task_row_tuple->value->int32);
+		DEBUG_MSG("Description: %s", task_text_tuple->value->cstring);
+		DEBUG_MSG("Time: %d", (int)task_time_tuple->value->int32);
+		setTask(task_row_tuple->value->int32, task_text_tuple->value->cstring, task_time_tuple->value->int32);
+
+	}
+
+
+
 
 }
 

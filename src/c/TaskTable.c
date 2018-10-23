@@ -39,7 +39,7 @@ static void draw_row_callback(GContext *ctx, const Layer *cell_layer,
 
   }else{
 
-    DEBUG_MSG("not highlighted");
+    //DEBUG_MSG("not highlighted");
 
 
     // Draw this row's index

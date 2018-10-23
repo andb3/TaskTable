@@ -28,6 +28,7 @@ extern Row menuRows[table_size];
 
 void setMenuRows(char *str, int i);
 void setMenuCount(int count, int i);
+void setTask(int row, /*int index,*/ char *str, int time);
 
 
 
