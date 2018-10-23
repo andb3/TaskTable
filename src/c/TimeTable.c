@@ -108,14 +108,15 @@ void setTask(int row, /*int index,*/ char *str, int s_time){
 
 
 
-  Task insertTask;
-  insertTask.description = malloc(sizeof(char) * (strlen(str) + 1));
-  strcpy(insertTask.description, str);
+  Task *insertTask;
+  insertTask = malloc(sizeof(Task));
+  insertTask->description = malloc(sizeof(char) * (strlen(str) + 1));
+  strcpy(insertTask->description, str);
 
-  DEBUG_MSG("Task Description: %s", insertTask.description);
+  DEBUG_MSG("Task Description: %s", insertTask->description);
 
 
-  insertTask.time = s_time;
+  insertTask->time = s_time;
 
   if(linked_list_count(menuRows[row].taskList)==0){
     linked_list_clear(menuRows[row].taskList);
@@ -124,10 +125,16 @@ void setTask(int row, /*int index,*/ char *str, int s_time){
   }
 
   //linked_list_insert(menuRows[row].taskList, insertTask, index);
-  linked_list_append(menuRows[row].taskList, &insertTask);
+  linked_list_append(menuRows[row].taskList, insertTask);
 
   DEBUG_MSG("Count: %d", linked_list_count(menuRows[row].taskList));
 
+  Task *task;
+  task = linked_list_get(menuRows[row].taskList, linked_list_count(menuRows[row].taskList)-1);
+
+  DEBUG_MSG("after task pointer");
+  DEBUG_MSG("crash time: %d", task->time);
+  DEBUG_MSG("crash text: %s", task->description);
 
   //DEBUG_MSG("Task name: %s", menuRows[row].taskList)
 }
