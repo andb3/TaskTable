@@ -8,6 +8,8 @@
 #include "commonwin.h"
 #include "AppMessages.h"
 #include "DaySelect.h"
+#include "tertiary_text.h"
+
 
 
 
@@ -39,7 +41,8 @@ void time_button_down();
 static void header_update_proc(Layer *layer, GContext *ctx);
 static void footer_update_proc(Layer *layer, GContext *ctx);
 static void dictation_session_callback(DictationSession *session, DictationSessionStatus status, char *transcription, void *context);
-
+void type_button_up();
+void type_callback(const char* result, size_t result_length, void* extra);
 
 
 
@@ -285,6 +288,7 @@ static void footer_update_proc(Layer *layer, GContext *ctx) {
 static void add_task_click_config(void *context)
 {
   window_single_click_subscribe(BUTTON_ID_UP, desc_button_up);
+  window_long_click_subscribe(BUTTON_ID_UP, 1000, type_button_up, NULL);
   window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler) add_button_select);
   window_single_click_subscribe(BUTTON_ID_DOWN, time_button_down);
 }
@@ -310,6 +314,20 @@ void desc_button_up(){
 
 
 }
+
+void type_button_up() {
+  tertiary_text_prompt("Task Description", type_callback, NULL);
+}
+void type_callback(const char* result, size_t result_length, void* extra) {
+  task_text = malloc(sizeof(char) * (result_length + 1));
+
+  //DEBUG_MSG("Status: %d", status);
+
+
+    strcpy(task_text, result);
+    text_layer_set_text(add_task_text_layer, task_text);
+}
+
 void add_button_select(){
 
   DEBUG_MSG("Select pressed");
