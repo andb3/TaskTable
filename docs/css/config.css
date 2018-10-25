@@ -17,9 +17,17 @@ body{
 
 }
 
+#card{
+  margin-top: 16px;
+  border-radius: 8px;
+  background-color: rgb(71, 71, 71);
+}
+
 p.section_text{
   margin-left: 16px;
 }
+
+
 
 p.right_align{
   padding-top: 4px;
@@ -41,10 +49,9 @@ p.right_align{
   border-radius: 8px;
 }*/
 
-.row_amount_select{
-  background-color: rgb(71, 71, 71);
-  border-radius: 8px;
-}
+
+
+
 
 #header{
   background-color: rgb(65, 65, 65);

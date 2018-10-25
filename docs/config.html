@@ -5,6 +5,9 @@
   <title>TaskTable Config</title>
   <link rel="stylesheet" type="text/css" href="css/slider.css">
   <link rel="stylesheet" type="text/css" href="css/button.css">
+  <link rel="stylesheet" type="text/css" href="css/rowdetails.css">
+  <link rel="stylesheet" type="text/css" href="css/textinput.css">
+  <link rel="stylesheet" type="text/css" href="css/time_picker.css">
   <link rel="stylesheet" type="text/css" href="css/config.css">
 
 
@@ -13,8 +16,9 @@
   <div class="header">
     <h2>TASKTABLE CONFIG</h2>
     <p>Set the amount of rows, their names, and optionally their times for each day of the week, for automated task adding on a Quick Launch.</p>
+    <p>NOTE: Editing these values will delete any tasks you had previously, even if those entries remain the same.</p>
   </div>
-  <div class="row_amount_select">
+  <div class="row_amount_select" id="card">
     <div id="header">
       <h3>TABLE ROWS</h3>
     </div>
@@ -27,13 +31,84 @@
     <div class="slidecontainer">
       <input type="range" min="1" max="12" value="8" class="slider" id="rowRange">
     </div>
-    <script src="js/pagesconfig.js"></script>
-
   </div>
+
+  <div class="table_inputs" id="card">
+    <div id="header">
+      <h3>TABLE DETAILS</h3>
+    </div>
+    <div class="input_holders" id="input_holders">
+      <div class="input">
+        <p class="row_name_text">Row <span class="rowname"></span></p>
+        <div class="textinput_holder">
+          <input type="text" class="textinput" placeholder="Name">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="time_picker" id="card">
+    <div class="time_picker_header" id="header">
+      <div class="time_picker_title" id="time_header">
+        <h3>TIME PICKER</h3>
+      </div>
+      <div class="">
+        <div class="time_picker_checkbox" id="time_header">
+          <p id="time_check_text">Use Times</p>
+          <input type="checkbox" checked id="time_check">
+        </div>
+        <div class="time_picker_dropdown" id="time_header">
+          <select id="pebbledropdown">
+            <option value="all">All Days</option>
+            <option value="week">Weekdays</option>
+            <option value="end">Weekends</option>
+            <option value="mon">Monday</option>
+            <option value="tue">Tuesday</option>
+            <option value="wed">Wednesday</option>
+            <option value="thu">Thursday</option>
+            <option value="fri">Friday</option>
+            <option value="sat">Saturday</option>
+            <option value="sun">Sunday</option>
+          </select>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="time_visualizer" id="time_visualizer">
+
+    </div>
+    <div class="range_holder" id="range_holder">
+      <p id="rangetext">Range 1</p>
+      <input type="time" name="starttime"  id="starttime">
+      <p id="rangetext">-</p>
+      <input type="time" name="endtime" id="endtime">
+      <div class="range_row" id="range_row">
+        <select id="rangedropdown">
+          <option value="all">All Days</option>
+          <option value="week">Weekdays</option>
+          <option value="end">Weekends</option>
+          <option value="mon">Monday</option>
+          <option value="tue">Tuesday</option>
+          <option value="wed">Wednesday</option>
+          <option value="thu">Thursday</option>
+          <option value="fri">Friday</option>
+          <option value="sat">Saturday</option>
+          <option value="sun">Sunday</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <input id='submit_button' type='button' value='SAVE'>
+
 </body>
 
-<input id='submit_button' type='button' value='SAVE'>
+
 <script src="js/submit.js"></script>
+<script src="js/pagesconfig.js"></script>
+<script src="js/dropdown.js"></script>
 
 
 </html>
