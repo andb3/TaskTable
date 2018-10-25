@@ -11,6 +11,8 @@ var preclasses = ["PE", "Science", "Computer Science", "History", "English", "Sp
 var writeTable;
 
 
+
+
 function setTable(){
   for (i = 0; i< table_size; i++){
 
@@ -66,6 +68,8 @@ function sendNextTableItemString(strings, index) {
 
 
   console.log('sending message');
+
+
 
 
   // Send the message
@@ -365,13 +369,16 @@ console.log('Message failed: ' + JSON.stringify(e));
 
 
 /********************************************************/
+
 Pebble.addEventListener('webviewclosed', function(e) {
   // Decode the user's preferences
   var configData = JSON.parse(decodeURIComponent(e.response));
-}
+});
 
 Pebble.addEventListener('showConfiguration', function() {
-  var url = 'http://example.com/config.html';
+  var url = 'https://andb3.github.io/TaskTable/config.html';
+
+  console.log("opening ", url);
 
   Pebble.openURL(url);
 });
