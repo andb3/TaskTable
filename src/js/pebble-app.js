@@ -1,10 +1,3 @@
-// Import the Clay package
-var Clay = require('pebble-clay');
-// Load our Clay configuration file
-var clayConfig = require('./config');
-// Initialize Clay
-var clay = new Clay(clayConfig); 
-
 var table_size = 8;
 
 // Initializing a class definition
@@ -372,3 +365,13 @@ console.log('Message failed: ' + JSON.stringify(e));
 
 
 /********************************************************/
+Pebble.addEventListener('webviewclosed', function(e) {
+  // Decode the user's preferences
+  var configData = JSON.parse(decodeURIComponent(e.response));
+}
+
+Pebble.addEventListener('showConfiguration', function() {
+  var url = 'http://example.com/config.html';
+
+  Pebble.openURL(url);
+});

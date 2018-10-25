@@ -1,0 +1,69 @@
+.slidecontainer {
+    /*width: 100%; /* Width of the outside container */
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px;
+    border-radius: 50%;
+    background: #FF4500; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #FF4500; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+
+.barCnt {
+  position: relative;
+  height: 10px;
+  padding: 5px 0px;
+}
+
+.barCnt .preBar {
+  position: absolute;
+  background-color: #FF4500;
+  height: 5px;
+  line-height: 5px;
+  z-index: 200;
+  border-radius: 3px;
+  padding: 0px;
+  margin: 0px;
+  pointer-events: none;
+}
+
+input[type=range].colorized {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  padding: 0px;
+  margin: 0px;
+  cursor: ew-resize;
+  z-index: 100;
+  left: 0px
+}

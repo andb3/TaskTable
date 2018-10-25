@@ -1,0 +1,57 @@
+@font-face {
+    font-family: pebbleRegular;
+    src: url(../res/fonts/pfdindisplaypro-regular.ttf);
+}
+
+div {
+    color: rgb(255, 255, 255);
+}
+
+body{
+  background-color: rgb(50, 50, 50);
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  font-family: pebbleRegular;
+
+}
+
+p.section_text{
+  padding-left: 16;
+}
+
+p.right_align{
+  padding-top: 4px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  margin-right: 16px;
+
+}
+
+.row_amt{
+  display: flex;
+  justify-content: space-between;
+}
+
+/*.text_outline{
+  background-color: rgb(65, 65, 65);
+  margin-right: 16px;
+  border-radius: 8px;
+}*/
+
+.row_amount_select{
+  background-color: rgb(71, 71, 71);
+  border-radius: 8px;
+}
+
+#header{
+  background-color: rgb(65, 65, 65);
+  padding-top: 1px;
+  padding-right: 16px;
+  padding-bottom: 1px;
+  padding-left: 16px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
