@@ -25,6 +25,7 @@
  #range_row{
    float: left;
    background-color: rgb(65, 65, 65);
+   position: relative;
    width: 125px;
    margin-left: 16px;
    margin-top: 8px;

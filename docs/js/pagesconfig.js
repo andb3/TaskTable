@@ -2,7 +2,9 @@ var slider = document.getElementById("rowRange");
 var output = document.getElementById("rowText");
 var table_holder = document.getElementById("input_holders");
 
-var tableHTML = '<p class="row_name_text">Row <span class="rowname"></span></p> <div class="textinput_holder"> <input type="text" class="textinput" placeholder="Name"></div>';
+var divArray;
+
+var tableHTML = '<p class="row_name_text">Row <span class="rowname"></span></p> <div class="textinput_holder"> <input type="text" class="textinput" onChange="setPreclasses();" placeholder="Name"></div>';
 
 output.innerHTML = slider.value; // Display the default slider value
 
@@ -51,7 +53,7 @@ function createRows(amount){
   table_holder.innerHTML = "";
 
 
-  var divArray = new Array();
+  divArray = new Array();
   for(var i = 0; i<amount; i++){
     divArray[i] = document.createElement('div');
     divArray[i].className = "input";

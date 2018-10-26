@@ -7,9 +7,13 @@
     var slider = document.getElementById("rowRange");
 
 
+
+
     // Make a data object to be sent, coercing value types to integers
     var options = {
       'table_size': parseInt(slider.value, 16),
+      'table_rows': getPreclasses(),
+      'table_times': getTimes()
     };
 
     // Determine the correct return URL (emulator vs real watch)
