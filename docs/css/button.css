@@ -1,4 +1,4 @@
-#submit_button{
+#submit_button, #add_range_button{
   background-color: #FF4500;
   color: #FFFFFF;
   border: none;
@@ -10,7 +10,7 @@
   font-size: 16pt;
 }
 
-#submit_button:hover{
+#submit_button:hover, #add_range_button:hover{
   opacity: 1;
   transition-duration: 0.2s;
   box-shadow: 0 0 50px 0 rgba(0,0,0,0.19);

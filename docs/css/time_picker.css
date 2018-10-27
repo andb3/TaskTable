@@ -1,15 +1,9 @@
-#time_header{
-  /*display: inline-block;*/
-  float: left;
-}
+/*******************RANGES************************/
 
-.time_picker_header{
-  display: flex;
-  justify-content: space-between;
-}
 
 #rangetext, #endtime, #starttime{
-  float: left;
+  /*float: left;*/
+  display: inline-block;
   margin-left: 16px;
   margin-top: 16px;
 }
@@ -23,7 +17,8 @@
  }
 
  #range_row{
-   float: left;
+   /*float: left;*/
+   display: inline-block;
    background-color: rgb(65, 65, 65);
    position: relative;
    width: 125px;
@@ -35,8 +30,43 @@
    display: none; /*hide original SELECT element:*/
  }
 
+ .range{
+   display: block;
+ }
+
 .range_holder{
-  overflow:auto;
+  overflow:visible;
+}
+
+.divender{
+  float: none;
+  display: block;
+  position: relative;
+}
+
+/*******************BUTTON************************/
+
+#add_range_button{
+  display: block;
+  width: 200px;
+  margin: 16px auto;
+}
+
+.addrangeholder{
+  overflow: auto;
+}
+
+
+/*******************HEADER************************/
+
+#time_header{
+  /*display: inline-block;*/
+  float: left;
+}
+
+.time_picker_header{
+  display: flex;
+  justify-content: space-between;
 }
 
 #time_check{
@@ -48,6 +78,8 @@
   float: left;
   margin: 20px 0px 0px 4px;
 }
+
+/*******************DROPDOWN************************/
 
 .time_picker_dropdown{
   margin: 12px 0px 0px 8px;

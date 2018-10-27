@@ -6,7 +6,8 @@
     // Get the config data from the UI elements
     var slider = document.getElementById("rowRange");
 
-
+    setPreclasses();
+    setTimes();
 
 
     // Make a data object to be sent, coercing value types to integers
