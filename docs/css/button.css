@@ -1,4 +1,4 @@
-#submit_button, #add_range_button{
+#submit_button{
   background-color: #FF4500;
   color: #FFFFFF;
   border: none;
@@ -10,7 +10,37 @@
   font-size: 16pt;
 }
 
-#submit_button:hover, #add_range_button:hover{
+#add_range_button{
+  /*padding: 0.5em;*/
+  background-color: #FF4500;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 54px;
+  opacity: 0.7;
+  margin-top: 18px;
+  font-family: inherit;
+  font-size: 12pt;
+}
+
+.remove_range_button{
+  background-color: #FF4500;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 8px;
+  opacity: 0.7;
+  vertical-align: middle;
+  margin-left: 8px;
+  font-family: inherit;
+  font-size: 12pt;
+}
+
+.material-icons{
+  vertical-align: middle;
+}
+
+#submit_button:hover, #add_range_button:hover .remove_range_button:hover{
   opacity: 1;
   transition-duration: 0.2s;
   box-shadow: 0 0 50px 0 rgba(0,0,0,0.19);
