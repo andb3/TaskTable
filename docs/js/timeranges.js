@@ -2,8 +2,11 @@ var rangeCache = document.getElementsByClassName("range");
 
 var rangehtml = '<p id="rangetext">Range <span class="rangenumber" id="rangenumber"></span></p><input type="time" name="starttime"  id="starttime" class="starttime"><p id="rangetext">-</p><input type="time" name="endtime" id="endtime" class="endtime"><div class="range_row" id="range_row"><select id="rangedropdown"></select></div><button class="remove_range_button"><i class="material-icons">clear</i></button>';
 
-function resetRanges(){
+function resetRanges(daysToSet){
+  var rangeholder = document.getElementById("range_holder");
+  rangeholder.innerHTML = "";
 
+  setRanges(daysToSet);
 }
 
 function getRanges(){
@@ -61,4 +64,18 @@ function checkTimes(){
 
 function updateRangeCache(){
   rangeCache = document.getElementsByClassName("range");
+}
+
+function setRanges(daysToSet) {
+  //get days, show alerts
+
+  if(daysToSet>-1){
+  }else if (daysToSet==-3||daysToSet==-2) {
+  }else{
+  }
+
+
+  //for(var i = 0; i<)
+
+
 }

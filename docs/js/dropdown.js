@@ -35,6 +35,8 @@ for (var i = 0; i < x.length; i++) {
             y[k].removeAttribute("class");
           }
           this.setAttribute("class", "same-as-selected");
+          getRanges();
+          getTimesByDay(i-3);
           break;
         }
       }
