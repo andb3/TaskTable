@@ -81,32 +81,21 @@
     </div>
     <div class="range_holder" id="range_holder">
       <div class="range">
-        <p id="rangetext">Range 1</p>
-        <input type="time" name="starttime"  id="starttime">
+        <p id="rangetext">Range <span id="rangenumber"></span></p>
+        <input type="time" name="starttime"  id="starttime" class="starttime">
         <p id="rangetext">-</p>
-        <input type="time" name="endtime" id="endtime">
+        <input type="time" name="endtime" id="endtime" class="endtime">
         <div class="range_row" id="range_row">
           <select id="rangedropdown">
-            <option value="all">All Days</option>
-            <option value="week">Weekdays</option>
-            <option value="end">Weekends</option>
-            <option value="mon">Monday</option>
-            <option value="tue">Tuesday</option>
-            <option value="wed">Wednesday</option>
-            <option value="thu">Thursday</option>
-            <option value="fri">Friday</option>
-            <option value="sat">Saturday</option>
-            <option value="sun">Sunday</option>
           </select>
         </div>
-        <div class="divender">
-        </div>
+
       </div>
       <div class="range">
         <p id="rangetext">Range 2</p>
-        <input type="time" name="starttime"  id="starttime">
+        <input type="time" name="starttime"  id="starttime" class="starttime">
         <p id="rangetext">-</p>
-        <input type="time" name="endtime" id="endtime">
+        <input type="time" name="endtime" id="endtime" class="endtime">
         <div class="range_row" id="range_row">
           <select id="rangedropdown">
             <option value="all">All Days</option>
@@ -126,7 +115,7 @@
       </div>
     </div>
     <div class="addrangeholder">
-      <button id='add_range_button'><i class="material-icons">add</i></button>
+      <button id='add_range_button' onclick="newRange();"><i class="material-icons">add</i></button>
     </div>
   </div>
 
@@ -139,6 +128,8 @@
 <script src="js/pagesconfig.js"></script>
 <script src="js/datastorage.js"></script>
 <script src="js/dropdown.js"></script>
+<script src="js/timeranges.js"></script>
+
 
 
 

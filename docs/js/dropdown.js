@@ -117,8 +117,15 @@ function setRangeDropdowns(){
       create a new DIV that will act as an option item:*/
       c = document.createElement("DIV");
       //c.innerHTML = selElmnt.options[j].innerHTML;
-      console.log(preclasses[j]);
-      c.innerHTML = preclasses[j];
+      //console.log(preclasses[j]);
+      if(preclasses[j] == null || preclasses[j] == ""){
+        //console.log("Preclasses not filled");
+        c.innerHTML = "No Name";
+      }else {
+        //console.log("Preclasses filled: " + preclasses[j]);
+        c.innerHTML = preclasses[j];
+      }
+      //c.innerHTML = preclasses[j];
       c.addEventListener("click", function(e) {
         /*when an item is clicked, update the original select box,
         and the selected item:*/
@@ -154,3 +161,5 @@ function setRangeDropdowns(){
     });
   }
 }
+
+setPreclasses();

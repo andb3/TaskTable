@@ -40,23 +40,78 @@ function setupTimes(){
 function setTimes(){
   var daysToSet = x[0].getElementsByTagName("select")[0].selectedIndex-3;
 
-  if(day>-1){
-    times[day] = new Array();
-  }
+  if(daysToSet>-1){
+    times[daysToSet] = new Array();
 
-  for (var i = 0; i<rangePickers.length; i++){
-    var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
-    var startTimeElmnt = rangePickers[i].getElementsByTagName("starttime")[0];
-    var endTimeElmnt = rangePickers[i].getElementsByTagName("endtime")[0];
-
+    for (var i = 0; i<rangePickers.length; i++){
+      var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
+      var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
+      var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
 
 
-    if(day>-1){
-      times[day].push()
+
+
+      times[daysToSet].push()
+
+
+    }
+  }else if (daysToSet==-3){
+    //return times[0];
+    for (var a = 0; a < 7/*all days*/; a++) {
+      times[a] = new Array();
+
+      for (var i = 0; i<rangePickers.length; i++){
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
+        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
+        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+
+
+
+
+        times[a].push()
+
+      }
     }
 
+
+
+  }else if (daysToSet==-2) {
+    for (var a = 0; a < 5 /*only weekdays*/; a++) {
+      times[a] = new Array();
+
+      for (var i = 0; i<rangePickers.length; i++){
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
+        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
+        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+
+
+
+
+        times[a].push()
+
+      }
+    }
+  }else{
+    for (var a = 5; a < 7 /*only weekends*/; a++) {
+      times[a] = new Array();
+
+      for (var i = 0; i<rangePickers.length; i++){
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
+        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
+        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+
+
+
+
+        times[a].push()
+
+      }
+    }
   }
 }
+
+
+
 
 function getTimesByDay(day){
   if(day>-1){
@@ -73,4 +128,3 @@ function getTimes(){
 }
 
 setupTimes();
-setPreclasses();
