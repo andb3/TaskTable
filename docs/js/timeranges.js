@@ -131,18 +131,21 @@ function setRanges(daysToSet, oldSelect) {
   for(var i = 0; i<rangeArray.length; i++){
     var appDiv = newRange(true);
 
-    var selElmnt = appDiv.getElementsByTagName("select")[0]
-    var sel = appDiv.getElementsByClassName("select-selected")[0].innerHTML;
-    var startTime = appDiv.getElementsByClassName("starttime")[0].value;
-    var endTime = appDiv.getElementsByClassName("endtime")[0].value;
+    //console.log("appDiv: " + appDiv.innerHTML);
 
-    startTime = rangeArray[i][0];
-    endTime = rangeArray[i][1];
+    var selElmnt = appDiv.getElementsByTagName("select")[0];
+    var sel = appDiv.getElementsByClassName("select-selected")[0];
+    //var startTime = appDiv.getElementsByClassName("starttime")[0].value;
+    //var endTime = appDiv.getElementsByClassName("endtime")[0].value;
+
+    appDiv.getElementsByClassName("starttime")[0].value = rangeArray[i][0];
+    appDiv.getElementsByClassName("endtime")[0].value = rangeArray[i][1];
 
     selElmnt.selectedIndex = rangeArray[i][2];
 
-    sel = preclasses[selElmnt.selectedIndex];
+    sel.innerHTML = preclasses[selElmnt.selectedIndex];
 
+    console.log("startTime: " + appDiv.getElementsByClassName("starttime")[0].value + ", endTime: " + appDiv.getElementsByClassName("endtime")[0].value + ", sel: " + sel.innerHTML + ", selElmnt: " + selElmnt.selectedIndex);
 
   }
 

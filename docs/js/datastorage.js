@@ -79,7 +79,7 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
         var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
         var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
         var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
@@ -87,9 +87,10 @@ function setTimes(){
         console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
 
         var timeArray = new Array();
-        timeArray.push(sel);
         timeArray.push(startTime);
         timeArray.push(endTime);
+
+        timeArray.push(selElmnt.selectedIndex);
 
 
 
@@ -105,7 +106,7 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
         var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
         var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
         var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
@@ -113,9 +114,10 @@ function setTimes(){
         console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
 
         var timeArray = new Array();
-        timeArray.push(sel);
         timeArray.push(startTime);
         timeArray.push(endTime);
+
+        timeArray.push(selElmnt.selectedIndex);
 
 
 
@@ -128,7 +130,7 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
         var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
         var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
         var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
