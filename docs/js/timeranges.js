@@ -6,16 +6,16 @@ function resetRanges(daysToSet){
   var rangeholder = document.getElementById("range_holder");
   rangeholder.innerHTML = "";
 
-  setRanges(daysToSet);
+  //setRanges(daysToSet);
 }
 
 function getRanges(){
   updateRangeCache();
-  setTimes();
+  //setTimes();
   resetRanges();
 }
 
-function newRange(){
+function newRange(returnresult){
   var rangeholder = document.getElementById("range_holder");
 
   var appDiv = document.createElement("DIV");
@@ -37,6 +37,10 @@ function newRange(){
   });
 
   setRangeDropdowns();
+
+  if(returnresult){
+    return appDiv;
+  }
 }
 
 function removeRange(toRemove){
@@ -66,16 +70,81 @@ function updateRangeCache(){
   rangeCache = document.getElementsByClassName("range");
 }
 
-function setRanges(daysToSet) {
+function setRanges(daysToSet, oldSelect) {
   //get days, show alerts
 
+  console.log("setRanges, daysToSet = " + daysToSet);
+  console.log("setRanges, oldSelect = " + oldSelect);
+
+  var rangeArray;
+  var dropdown = document.getElementsByClassName("time_picker_dropdown")[0];
+  var dropdownTitle = dropdown.getElementsByClassName("select-selected")[0];
+
+
   if(daysToSet>-1){
-  }else if (daysToSet==-3||daysToSet==-2) {
+
+    rangeArray = getTimesByDay(daysToSet);
+
+  }else if (daysToSet==-3){
+
+    if(times[0]==times[1]&&times[0]==times[2]&&times[0]==times[3]&&times[0]==times[4]&&times[0]==times[5]&&times[0]==times[6]){//all the same
+      rangeArray = getTimesByDay(daysToSet);
+    }else {
+      if(confirm("This will overwrite all days with Monday's schedule. Proceed?")){
+        rangeArray = getTimesByDay(daysToSet);
+      }else {
+        rangeArray = getTimesByDay(oldSelect);
+        dropdown.selectedIndex = oldSelect;
+        dropdownTitle.innerHTML = dropdown.options[oldSelect].innerHTML;
+      }
+    }
+
+  }else if(daysToSet==-2) {
+
+    if(times[0]==times[1]&&times[0]==times[2]&&times[0]==times[3]&&times[0]==times[4]){//all the same
+      rangeArray = getTimesByDay(daysToSet);
+    }else {
+      if(confirm("This will overwrite all weekdays with Monday's schedule. Proceed?")){
+        rangeArray = getTimesByDay(daysToSet);
+      }else {
+        rangeArray = getTimesByDay(oldSelect);
+        dropdown.selectedIndex = oldSelect;
+        dropdownTitle.innerHTML = dropdown.options[oldSelect].innerHTML;
+      }
+    }
+
   }else{
+    if(times[5]==times[6]){//all the same
+      rangeArray = getTimesByDay(daysToSet);
+    }else {
+      if(confirm("This will overwrite all weekend days with Saturday's schedule. Proceed?")){
+        rangeArray = getTimesByDay(daysToSet);
+      }else {
+        rangeArray = getTimesByDay(oldSelect);
+        dropdown.selectedIndex = oldSelect;
+        dropdownTitle.innerHTML = dropdown.options[oldSelect].innerHTML;
+      }
+    }
   }
 
 
-  //for(var i = 0; i<)
+  for(var i = 0; i<rangeArray.length; i++){
+    var appDiv = newRange(true);
+
+    var selElmnt = appDiv.getElementsByTagName("select")[0]
+    var sel = appDiv.getElementsByClassName("select-selected")[0].innerHTML;
+    var startTime = appDiv.getElementsByClassName("starttime")[0].value;
+    var endTime = appDiv.getElementsByClassName("endtime")[0].value;
+
+    startTime = rangeArray[i][0];
+    endTime = rangeArray[i][1];
+
+    selElmnt.selectedIndex = rangeArray[i][2];
+
+    sel = preclasses[selElmnt.selectedIndex];
+
+
+  }
 
 
 }

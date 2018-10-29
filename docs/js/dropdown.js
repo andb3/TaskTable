@@ -28,6 +28,12 @@ for (var i = 0; i < x.length; i++) {
       h = this.parentNode.previousSibling;
       for (i = 0; i < s.length; i++) {
         if (s.options[i].innerHTML == this.innerHTML) {
+          console.log("selected index: " + s.selectedIndex);
+          var oldSelect = s.selectedIndex;
+          console.log("selected index: " + oldSelect);
+
+          setTimes(); //before index set
+
           s.selectedIndex = i;
           h.innerHTML = this.innerHTML;
           y = this.parentNode.getElementsByClassName("same-as-selected");
@@ -36,7 +42,8 @@ for (var i = 0; i < x.length; i++) {
           }
           this.setAttribute("class", "same-as-selected");
           getRanges();
-          getTimesByDay(i-3);
+          setRanges(i-3, oldSelect);
+          //getTimesByDay();
           break;
         }
       }

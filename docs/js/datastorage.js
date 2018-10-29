@@ -38,20 +38,38 @@ function setupTimes(){
 }
 
 function setTimes(){
+
+  console.log("saving times");
   var daysToSet = x[0].getElementsByTagName("select")[0].selectedIndex-3;
 
+  console.log("setting day ", daysToSet);
+
+  rangePickers = document.getElementsByClassName("range");
+
+
   if(daysToSet>-1){
+
+    console.log("setting day ", daysToSet);
+
     times[daysToSet] = new Array();
 
     for (var i = 0; i<rangePickers.length; i++){
-      var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
-      var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
-      var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+      var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+      var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
+      var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
+      var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
+
+      console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+
+      var timeArray = new Array();
+      timeArray.push(startTime);
+      timeArray.push(endTime);
+
+      timeArray.push(selElmnt.selectedIndex);
 
 
 
-
-      times[daysToSet].push()
+      times[daysToSet].push(timeArray)
 
 
     }
@@ -61,14 +79,21 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
-        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
-        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
+        var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
+        var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
+
+        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+
+        var timeArray = new Array();
+        timeArray.push(sel);
+        timeArray.push(startTime);
+        timeArray.push(endTime);
 
 
 
-
-        times[a].push()
+        times[a].push(timeArray)
 
       }
     }
@@ -80,14 +105,21 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
-        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
-        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
+        var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
+        var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
+
+        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+
+        var timeArray = new Array();
+        timeArray.push(sel);
+        timeArray.push(startTime);
+        timeArray.push(endTime);
 
 
 
-
-        times[a].push()
+        times[a].push(timeArray)
 
       }
     }
@@ -96,18 +128,27 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
-        var startTimeElmnt = rangePickers[i].getElementsByClassName("starttime")[0];
-        var endTimeElmnt = rangePickers[i].getElementsByClassName("endtime")[0];
+        //var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
+        var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
+        var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
+
+        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+
+        var timeArray = new Array();
+        timeArray.push(sel);
+        timeArray.push(startTime);
+        timeArray.push(endTime);
 
 
 
-
-        times[a].push()
+        times[a].push(timeArray)
 
       }
     }
   }
+
+  console.log(times);
 }
 
 
