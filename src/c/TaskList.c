@@ -8,12 +8,17 @@ static Window *tasklist_window;
 static Layer *s_header_layer;
 static MenuLayer *task_menu_layer;
 
-static void* cacheArrayPointer;
+//static void* cacheArrayPointer;
+Task taskCache[0];
+
 
 int tasksLength;
 char *text;
 
 static int currentRow;
+
+GFont font;
+
 
 static void header_update_proc(Layer *layer, GContext *ctx);
 static void update_task_count();
@@ -55,6 +60,11 @@ void tasklist_init(int row) {
 
 void tasklist_deinit(void) {
   window_destroy(tasklist_window);
+  menu_layer_destroy(task_menu_layer);
+  //layer_destroy(window_layer);
+  layer_destroy(s_header_layer);
+  free(font);
+  //free(taskCache);
 }
 
 void load_table_from_tasklist(){
@@ -83,8 +93,11 @@ void tasklist_window_load(Window *window) {
 
   // Add to Window
 
+  font  = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+
 
   update_task_count();
+  setTaskCache();
 
   task_menu_layer = menu_layer_create(bounds);
 
@@ -129,7 +142,12 @@ layer_add_child(window_layer, task_card_placeholder);
 }
 
 static uint16_t get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *data){
+  DEBUG_MSG("Showing list of length %d", menuRows[currentRow].tasks);
+  //DEBUG_MSG("Showing list of length %d", linked_list_count(menuRows[currentRow].taskList));
   return menuRows[currentRow].tasks;
+  //return linked_list_count(menuRows[currentRow].taskList);
+
+
 }
 
 
@@ -164,12 +182,12 @@ static void draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex 
   // Set the font color
   graphics_context_set_text_color(ctx, GColorBlack);
 
-  GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
 
   DEBUG_MSG("before task pointer");
 
   Task *task;
   task = linked_list_get(menuRows[currentRow].taskList, (int)cell_index->row);
+  //task = &taskCache[(int)cell_index->row];
 
   DEBUG_MSG("after task pointer");
   DEBUG_MSG("crash time: %d", task->time);
@@ -298,33 +316,40 @@ static void header_update_proc(Layer *layer, GContext *ctx) {
 static void setTaskCache(){
 
   /*int length = linked_list_count(menuRows[currentRow].taskList);
+  //int length = menuRows[currentRow].tasks;
 
-  Task taskCache[length];
+  DEBUG_MSG("Showing list of length %d", length);
+
 
   for(int i = 0; i<length; i++){
+
+    //taskCache[i] = malloc(sizeof(Task));
 
     Task *task;
     task = linked_list_get(menuRows[currentRow].taskList, i);
 
-    DEBUG_MSG("after task pointer");
-    DEBUG_MSG("crash time: %d", task->time);
+    //DEBUG_MSG("after task pointer");
+    //DEBUG_MSG("crash time: %d", task->time);
     //DEBUG_MSG("crash text: %s", task->description);
 
     char *card_text;
     if(task->description!=NULL || strcmp(task->description, "") != 0){
-      DEBUG_MSG("Showing task text");
-      card_text = malloc(sizeof(char) * (strlen(task->description) + 1));
-      strcpy(card_text, task->description);
+      //DEBUG_MSG("Showing task text");
+      taskCache[i].description = malloc(sizeof(char) * (strlen(task->description) + 1));
+      strcpy(taskCache[i].description, task->description);
     }else{
       DEBUG_MSG("Showing no text");
-      card_text = malloc(sizeof(char) * (strlen("•") + 1));
-      strcpy(card_text, "•");
+      taskCache[i].description = malloc(sizeof(char) * (strlen("•") + 1));
+      strcpy(taskCache[i].description, "•");
     }
 
-    taskCache[i].description
 
     DEBUG_MSG("after text assign");
   }*/
+
+
+
+  //cacheArrayPointer = taskCache;
 }
 
 
