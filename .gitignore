@@ -3,5 +3,6 @@
 node_modules/
 build/*
 .atom-build.yaml
+.DS_Store
 
 !build/TaskTable.pbw

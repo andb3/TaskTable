@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="css/rowdetails.css">
   <link rel="stylesheet" type="text/css" href="css/textinput.css">
   <link rel="stylesheet" type="text/css" href="css/time_picker.css">
+  <link rel="stylesheet" type="text/css" href="css/checkbox.css">
   <link rel="stylesheet" type="text/css" href="css/config.css">
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet">
@@ -56,7 +57,11 @@
       <div>
         <div class="time_picker_checkbox" id="time_header">
           <p id="time_check_text">Use Times</p>
-          <input type="checkbox" checked id="time_check">
+          <div class="checkbox_holder">
+            <input type="checkbox"  id="time_check" name="">
+            <label for="time_check"></label>
+          </div>
+
         </div>
         <div class="time_picker_dropdown" id="time_header">
           <select id="pebbledropdown">
