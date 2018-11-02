@@ -141,13 +141,14 @@ function setRanges(daysToSet, oldSelect) {
     appDiv.getElementsByClassName("starttime")[0].value = rangeArray[i][0];
     appDiv.getElementsByClassName("endtime")[0].value = rangeArray[i][1];
 
-    selElmnt.selectedIndex = rangeArray[i][2];
+    selElmnt.selectedIndex = rangeArray[i][2]+3;
 
     sel.innerHTML = preclasses[selElmnt.selectedIndex];
 
     console.log("startTime: " + appDiv.getElementsByClassName("starttime")[0].value + ", endTime: " + appDiv.getElementsByClassName("endtime")[0].value + ", sel: " + sel.innerHTML + ", selElmnt: " + selElmnt.selectedIndex);
 
   }
+  //setRangeDropdowns();
 
 
 }
