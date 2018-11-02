@@ -167,7 +167,12 @@ function getTimesByDay(day){
 }
 
 function getTimes(){
-  return JSON.stringify(times);
+  var time_check = document.getElementById("time_check");
+  if(time_check.checked){
+    return JSON.stringify(times);
+  }else {
+    return "";
+  }
 }
 
 setupTimes();
