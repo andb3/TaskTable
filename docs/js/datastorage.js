@@ -7,7 +7,7 @@ function setPreclasses(){
     var rowtext = divArray[i].getElementsByClassName("textinput")[0].value;
     preclasses.push(rowtext);
   }
-  console.log(preclasses);
+  //console.log(preclasses);
   setRangeDropdowns();
 }
 
@@ -79,12 +79,13 @@ function setTimes(){
       times[a] = new Array();
 
       for (var i = 0; i<rangePickers.length; i++){
-        var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+        var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
         var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
         var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
         var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
 
-        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+//        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
+        console.log(selElmnt.selectedIndex);
 
         var timeArray = new Array();
         timeArray.push(startTime);
@@ -150,6 +151,7 @@ function setTimes(){
     }
   }
 
+  console.log('Times:');
   console.log(times);
 }
 

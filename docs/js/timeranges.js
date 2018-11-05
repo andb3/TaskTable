@@ -87,7 +87,7 @@ function setRanges(daysToSet, oldSelect) {
 
   }else if (daysToSet==-3){
 
-    if(times[0]==times[1]&&times[0]==times[2]&&times[0]==times[3]&&times[0]==times[4]&&times[0]==times[5]&&times[0]==times[6]){//all the same
+    if(arraysIdentical(times[0],times[1])&&arraysIdentical(times[0],times[2])&&arraysIdentical(times[0],times[3])&&arraysIdentical(times[0],times[4])&&arraysIdentical(times[0],times[5])&&arraysIdentical(times[0],times[6])){//all the same
       rangeArray = getTimesByDay(daysToSet);
     }else {
       if(confirm("This will overwrite all days with Monday's schedule. Proceed?")){
@@ -101,7 +101,8 @@ function setRanges(daysToSet, oldSelect) {
 
   }else if(daysToSet==-2) {
 
-    if(times[0]==times[1]&&times[0]==times[2]&&times[0]==times[3]&&times[0]==times[4]){//all the same
+
+    if(arraysIdentical(times[0],times[1])&&arraysIdentical(times[0],times[2])&&arraysIdentical(times[0],times[3])&&arraysIdentical(times[0],times[4])){//all the same
       rangeArray = getTimesByDay(daysToSet);
     }else {
       if(confirm("This will overwrite all weekdays with Monday's schedule. Proceed?")){
@@ -114,7 +115,7 @@ function setRanges(daysToSet, oldSelect) {
     }
 
   }else{
-    if(times[5]==times[6]){//all the same
+    if(arraysIdentical(times[5],times[6])){//all the same
       rangeArray = getTimesByDay(daysToSet);
     }else {
       if(confirm("This will overwrite all weekend days with Saturday's schedule. Proceed?")){
@@ -131,6 +132,9 @@ function setRanges(daysToSet, oldSelect) {
   for(var i = 0; i<rangeArray.length; i++){
     var appDiv = newRange(true);
 
+    console.log("i: " + i);
+    console.log('rangeArray:');
+    console.log(rangeArray);
     //console.log("appDiv: " + appDiv.innerHTML);
 
     var selElmnt = appDiv.getElementsByTagName("select")[0];
@@ -141,9 +145,13 @@ function setRanges(daysToSet, oldSelect) {
     appDiv.getElementsByClassName("starttime")[0].value = rangeArray[i][0];
     appDiv.getElementsByClassName("endtime")[0].value = rangeArray[i][1];
 
-    selElmnt.selectedIndex = rangeArray[i][2]+3;
 
-    sel.innerHTML = preclasses[selElmnt.selectedIndex];
+    var indextoselect = rangeArray[i][2]+3;
+    console.log("selectedIndex should be " + indextoselect);
+    selElmnt.selectedIndex = indextoselect.toString();
+    console.log('selectedIndex is ' + selElmnt.selectedIndex);
+
+    sel.innerHTML = preclasses[indextoselect];
 
     console.log("startTime: " + appDiv.getElementsByClassName("starttime")[0].value + ", endTime: " + appDiv.getElementsByClassName("endtime")[0].value + ", sel: " + sel.innerHTML + ", selElmnt: " + selElmnt.selectedIndex);
 
@@ -152,3 +160,12 @@ function setRanges(daysToSet, oldSelect) {
 
 
 }
+
+function arraysIdentical(a, b) {
+    var i = a.length;
+    if (i != b.length) return false;
+    while (i--) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+};
