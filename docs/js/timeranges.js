@@ -194,7 +194,7 @@ var isEqualArrays = function (value, other) {
 
 		// If an object or array, compare recursively
 		if (['[object Array]', '[object Object]'].indexOf(itemType) >= 0) {
-			if (!isEqual(item1, item2)) return false;
+			if (!isEqualArrays(item1, item2)) return false;
 		}
 
 		// Otherwise, do a simple comparison
