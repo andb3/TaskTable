@@ -48,7 +48,7 @@ function removeRange(toRemove){
 
   var rangeholder = document.getElementById("range_holder");
 
-  console.log("removing element " + toRemove + " of " + rangeholder.childElementCount);
+  //console.log("removing element " + toRemove + " of " + rangeholder.childElementCount);
 
   rangeholder.removeChild(rangeholder.children[toRemove]);
   //rangeholder.removeChild(rangeholder.childNodes[toRemove]);
@@ -73,8 +73,8 @@ function updateRangeCache(){
 function setRanges(daysToSet, oldSelect) {
   //get days, show alerts
 
-  console.log("setRanges, daysToSet = " + daysToSet);
-  console.log("setRanges, oldSelect = " + oldSelect);
+  //console.log("setRanges, daysToSet = " + daysToSet);
+  //console.log("setRanges, oldSelect = " + oldSelect);
 
   var rangeArray;
   var dropdown = document.getElementsByClassName("time_picker_dropdown")[0];
@@ -132,9 +132,9 @@ function setRanges(daysToSet, oldSelect) {
   for(var i = 0; i<rangeArray.length; i++){
     var appDiv = newRange(true);
 
-    console.log("i: " + i);
-    console.log('rangeArray:');
-    console.log(rangeArray);
+    //console.log("i: " + i);
+    //console.log('rangeArray:');
+    //console.log(rangeArray);
     //console.log("appDiv: " + appDiv.innerHTML);
 
     var selElmnt = appDiv.getElementsByTagName("select")[0];
@@ -146,14 +146,14 @@ function setRanges(daysToSet, oldSelect) {
     appDiv.getElementsByClassName("endtime")[0].value = rangeArray[i][1];
 
 
-    var indextoselect = rangeArray[i][2]+3;
-    console.log("selectedIndex should be " + indextoselect);
+    var indextoselect = rangeArray[i][2];
+    //console.log("selectedIndex should be " + indextoselect);
     selElmnt.selectedIndex = indextoselect.toString();
-    console.log('selectedIndex is ' + selElmnt.selectedIndex);
+    //console.log('selectedIndex is ' + selElmnt.selectedIndex);
 
     sel.innerHTML = preclasses[indextoselect];
 
-    console.log("startTime: " + appDiv.getElementsByClassName("starttime")[0].value + ", endTime: " + appDiv.getElementsByClassName("endtime")[0].value + ", sel: " + sel.innerHTML + ", selElmnt: " + selElmnt.selectedIndex);
+    //console.log("startTime: " + appDiv.getElementsByClassName("starttime")[0].value + ", endTime: " + appDiv.getElementsByClassName("endtime")[0].value + ", sel: " + sel.innerHTML + ", selElmnt: " + selElmnt.selectedIndex);
 
   }
   //setRangeDropdowns();

@@ -28,9 +28,9 @@ for (var i = 0; i < x.length; i++) {
       h = this.parentNode.previousSibling;
       for (i = 0; i < s.length; i++) {
         if (s.options[i].innerHTML == this.innerHTML) {
-          console.log("selected index: " + s.selectedIndex);
+          console.log("selected index (header): " + s.selectedIndex);
           var oldSelect = s.selectedIndex;
-          console.log("selected index: " + oldSelect);
+          console.log("selected index: (header)" + oldSelect);
 
           setTimes(); //before index set
 
@@ -145,6 +145,8 @@ function setRangeDropdowns(){
         for (i = 0; i < preclasses.length; i++) {
           if (preclasses[i] == this.innerHTML) {
             s.selectedIndex = i;
+            selElmnt.selectedIndex = i.toString();
+            console.log("range index on select: " + selElmnt.selectedIndex);
             h.innerHTML = this.innerHTML;
             y = this.parentNode.getElementsByClassName("same-as-selected");
             for (k = 0; k < y.length; k++) {

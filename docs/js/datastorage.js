@@ -46,6 +46,11 @@ function setTimes(){
 
   rangePickers = document.getElementsByClassName("range");
 
+  console.log("Selected indexes of ranges: ");
+  for (var i = 0; i<rangePickers.length; i++){
+    var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
+    console.log(selElmnt.selectedIndex);
+  }
 
   if(daysToSet>-1){
 
@@ -54,7 +59,7 @@ function setTimes(){
     times[daysToSet] = new Array();
 
     for (var i = 0; i<rangePickers.length; i++){
-      var selElmnt = rangePickers[i].getElementsByTagName("select")[0]
+      var selElmnt = rangePickers[i].getElementsByTagName("select")[0];
       var sel = rangePickers[i].getElementsByClassName("select-selected")[0].innerHTML;
       var startTime = rangePickers[i].getElementsByClassName("starttime")[0].value;
       var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
@@ -85,7 +90,7 @@ function setTimes(){
         var endTime = rangePickers[i].getElementsByClassName("endtime")[0].value;
 
 //        console.log("sel: " + sel + ", startTime: " + startTime + ", endtime: " + endTime);
-        console.log(selElmnt.selectedIndex);
+        //console.log(selElmnt.selectedIndex);
 
         var timeArray = new Array();
         timeArray.push(startTime);
