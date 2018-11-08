@@ -122,6 +122,8 @@ function setRangeDropdowns(){
     b = document.createElement("DIV");
     b.setAttribute("class", "select-items select-hide");
     for (var j = 0; j < preclasses.length; j++) {
+      var placeholder = document.createElement("OPTION");
+      selElmnt.appendChild(placeholder);
       /*for each option in the original select element,
       create a new DIV that will act as an option item:*/
       c = document.createElement("DIV");
@@ -146,7 +148,8 @@ function setRangeDropdowns(){
           if (preclasses[i] == this.innerHTML) {
             s.selectedIndex = i;
             selElmnt.selectedIndex = i.toString();
-            console.log("range index on select: " + selElmnt.selectedIndex);
+            //selElmnt.options[i].selected = true;
+            console.log("range index on select: " + selElmnt.selectedIndex + ", " + s.selectedIndex);
             h.innerHTML = this.innerHTML;
             y = this.parentNode.getElementsByClassName("same-as-selected");
             for (k = 0; k < y.length; k++) {
