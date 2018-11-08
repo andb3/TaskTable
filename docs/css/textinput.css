@@ -4,8 +4,8 @@
   border-radius: 8px;
   padding: 8px;
   margin-bottom: 16px;
-  width: calc(100% - 48px); // 32 = right margin + left margin
-  color: white;
+  width: calc(100% - 48px); /* 32 = right margin + left margin*/
+  color: rgb(255,255,255);
   background-color: rgb(50, 50, 50);
   font-family: pebbleRegular;
   font-size: 12pt;
